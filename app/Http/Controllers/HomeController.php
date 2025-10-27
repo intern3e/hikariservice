@@ -8,7 +8,6 @@ class HomeController
 {
     public function home(Request $request)
     {
-        return view(home);
+        return view('home'); 
     }
-
 }
