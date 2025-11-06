@@ -12,7 +12,7 @@ class ServiceController extends Controller
         // ดึง service ทั้งหมดมาแสดง
         $services = Service::all();
 
-        return view('service', compact('services'));
+        return view('Service', compact('services'));
     }
 
     // ใช้เสิร์ฟไฟล์ PDF จาก storage/app/public/brochures
