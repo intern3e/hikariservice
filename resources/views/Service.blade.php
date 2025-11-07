@@ -25,7 +25,6 @@
       --ink:#0f172a; --muted:#64748b; --line:#e5e7eb; --bg:#ffffff;
       --radius:14px; --header-h:74px; --max-w:1280px;
     }
-
     *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
     html{ scroll-behavior:smooth; scroll-padding-top:var(--header-h); }
     body{
@@ -33,7 +32,6 @@
       color:var(--ink); background:#f1f5f9; line-height:1.6;
     }
 
-    /* HEADER */
     header{
       position:sticky; top:0; z-index:50;
       background:rgba(255,255,255,0.9);
@@ -77,11 +75,6 @@
     }
     .btn-quote:hover{ transform:translateY(-2px); }
 
-    @media (max-width:1024px){
-      .nav-desktop{ display:none; }
-      .right{ display:none; }
-    }
-
     /* PDF VIEWER */
     #pdfViewport{
       min-height: 90vh;
@@ -91,8 +84,7 @@
     }
     .a4-page{
       width: 100%;
-      max-width: 210mm;
-      aspect-ratio: 1 / 1.41421356;
+      /* max-width จะถูกตั้งค่าแบบไดนามิกด้วย JS ตามแนวกระดาษ: portrait = 210mm, landscape = 297mm */
       background:#fff;
       border-radius:18px;
       box-shadow:0 18px 40px rgba(15,23,42,.06);
@@ -182,45 +174,30 @@
 
   @php
     $servicesCollection = collect($services ?? []);
+    $normalize = fn($v) => str_replace(' ', '', trim($v ?? ''));
 
-    // กรองตาม category ภาษาไทยจาก DB
     $upsByBrand = $servicesCollection
-        ->where('category', 'UPS เครื่องสำรองไฟ')
-        ->groupBy('brand')
-        ->sortKeys();
+        ->filter(fn($s) => $normalize($s->category) === $normalize('UPSเครื่องสำรองไฟ'))
+        ->groupBy('brand')->sortKeys();
 
     $emerByBrand = $servicesCollection
-        ->where('category', 'ไฟฉุกเฉินและป้ายหนีไฟ')
-        ->groupBy('brand')
-        ->sortKeys();
+        ->filter(fn($s) => $normalize($s->category) === $normalize('ไฟฉุกเฉินและป้ายหนีไฟ'))
+        ->groupBy('brand')->sortKeys();
 
     $batteryByBrand = $servicesCollection
-        ->where('category', 'แบตเตอรี่')
-        ->groupBy('brand')
-        ->sortKeys();
+        ->filter(fn($s) => $normalize($s->category) === $normalize('แบตเตอรี่'))
+        ->groupBy('brand')->sortKeys();
 
-    // default PDF = service แรกที่มีไฟล์
-    $firstWithPdf = $servicesCollection->first(function($s){ return !empty($s->pdf); });
+    $firstWithPdf = $servicesCollection->first(fn($s) => !empty($s->pdf));
     $defaultPdfPath = $firstWithPdf ? asset('storage/'.$firstWithPdf->pdf) : null;
 
-    // ปุ่มด้านซ้าย – กรอบยืดตามเนื้อหา
-    $chipBox = 'flex items-center justify-center w-full
-                h-auto min-h-10 px-4 py-2
-                rounded-xl border border-slate-200 bg-white/90 text-slate-700
-                shadow-sm transition
-                hover:bg-blue-50 hover:border-blue-400 hover:text-blue-700
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300
-                active:translate-y-px text-sm
-                whitespace-normal break-words';
+    $chipBox = 'flex items-center justify-center w-full h-auto min-h-10 px-4 py-2 rounded-xl border border-slate-200 bg-white/90 text-slate-700 shadow-sm transition hover:bg-blue-50 hover:border-blue-400 hover:text-blue-700 text-sm whitespace-normal break-words';
   @endphp
 
-  <!-- LAYOUT: ซ้ายเมนู / ขวา viewer -->
   <main class="max-w-7xl mx-auto px-3 md:px-6 py-6 grid grid-cols-1 md:grid-cols-[320px,1fr] gap-6">
-
     <!-- ซ้าย: หมวดหมู่ -->
-    <aside class=>
+    <aside>
       <div class="md:max-h-[calc(100vh-8rem)] md:overflow-y-auto overscroll-contain pr-1 scroll-y space-y-4">
-
         {{-- UPS --}}
         @if($upsByBrand->isNotEmpty())
         <section class="rounded-3xl border border-slate-200 bg-white p-4">
@@ -262,15 +239,14 @@
               @foreach($emerByBrand as $brand => $items)
                 @php $file = $items->first(); @endphp
                 @if(!empty($file->pdf))
-                  @php $extra = strtolower($brand) === 'sunny' ? 'col-span-2 ' : ''; @endphp
-                  <li class="{{ $extra }}min-w-0">
-                    <button type="button" class="{{ $chipBox }}"
-                            data-pdf="{{ asset('storage/'.$file->pdf) }}"
-                            onclick="handlePdfClick(this)"
-                            title="{{ $brand }}">
-                      <span class="truncate">{{ $brand }}</span>
-                    </button>
-                  </li>
+                <li class="min-w-0">
+                  <button type="button" class="{{ $chipBox }}"
+                          data-pdf="{{ asset('storage/'.$file->pdf) }}"
+                          onclick="handlePdfClick(this)"
+                          title="{{ $brand }}">
+                    <span class="truncate">{{ $brand }}</span>
+                  </button>
+                </li>
                 @endif
               @endforeach
             </ul>
@@ -341,38 +317,48 @@
       const container = document.getElementById('pdfContainer');
       const DPR_LIMIT = 2;
 
+      /**
+       * เรนเดอร์ 1 หน้า โดยให้ wrapper (a4-page) ปรับ aspect-ratio ตามหน้าจริง
+       * และตั้ง max-width: portrait 210mm / landscape 297mm อัตโนมัติ
+       */
       async function renderOnePage(pdf, pageNum){
         const page = await pdf.getPage(pageNum);
-        const raw = page.getViewport({ scale: 1 });
-        const isLandscape = raw.width > raw.height;
 
+        // ใช้ rotation เดิมของไฟล์ (ถ้ามี) ไม่ฝืนหมุนเอง
+        const rotation = (page.rotate || 0) % 360;
+
+        // viewport “อ้างอิง” ที่ scale = 1 เพื่อรู้สัดส่วนจริงของหน้า
+        const ref = page.getViewport({ scale: 1, rotation });
+        const aspect = ref.width / ref.height; // >=1 = แนวนอน
+
+        // สร้าง wrapper และตั้ง aspect-ratio แบบไดนามิก
         const wrap = document.createElement('div');
         wrap.className = 'a4-page';
+        // แนวนอนใช้ max 297mm, แนวตั้งใช้ max 210mm
+        const maxWmm = aspect >= 1 ? 297 : 210;
+        wrap.style.maxWidth = maxWmm + 'mm';
+        wrap.style.aspectRatio = aspect.toFixed(6); // ให้ container สูงตามสัดส่วนจริง
         const fit = document.createElement('div');
         fit.className = 'a4-fit';
         wrap.appendChild(fit);
         container.appendChild(wrap);
 
+        // คำนวณสเกลให้ภาพ “เต็มกรอบ” โดยคงสัดส่วน
         const rect = fit.getBoundingClientRect();
-        const cssW = rect.width || 794;
-        const cssH = rect.height || 1123;
-
-        const rotation = isLandscape ? 90 : 0;
-        const baseW = isLandscape ? raw.height : raw.width;
-        const baseH = isLandscape ? raw.width  : raw.height;
-
-        const dpr = Math.min(window.devicePixelRatio || 1, DPR_LIMIT);
-        const scale = Math.min((cssW * dpr) / baseW, (cssH * dpr) / baseH);
+        const cssW = rect.width  || (aspect >= 1 ? 1122 : 794);  // fallback px
+        const cssH = rect.height || (aspect >= 1 ? 794  : 1122);
+        const dpr  = Math.min(window.devicePixelRatio || 1, DPR_LIMIT);
+        const scale = Math.min((cssW * dpr) / ref.width, (cssH * dpr) / ref.height);
 
         const viewport = page.getViewport({ scale, rotation });
+
+        // สร้างแคนวาสแล้ววาด
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d', { alpha:false });
-
         canvas.width  = Math.ceil(viewport.width);
         canvas.height = Math.ceil(viewport.height);
         canvas.style.width  = Math.round(viewport.width  / dpr) + 'px';
         canvas.style.height = Math.round(viewport.height / dpr) + 'px';
-
         fit.appendChild(canvas);
 
         const meta = document.createElement('div');
@@ -402,13 +388,12 @@
         try {
           const pdf = await pdfjsLib.getDocument(pdfPath).promise;
           container.innerHTML = '';
-          await renderOnePage(pdf, 1);
-
-          let n = 2;
-          (function step(){
-            if(n > pdf.numPages) return;
-            renderOnePage(pdf, n++).then(()=>requestAnimationFrame(step));
-          })();
+          // โหลดทีละหน้า—แต่ทุกหน้าจะรักษาแนวจริง (portrait/landscape) ตามไฟล์
+          for (let n = 1; n <= pdf.numPages; n++) {
+            // เรนเดอร์แล้วค่อย ๆ เติม เพื่อลื่น
+            // eslint-disable-next-line no-await-in-loop
+            await renderOnePage(pdf, n);
+          }
         } catch (e) {
           console.error(e);
           container.innerHTML = `
