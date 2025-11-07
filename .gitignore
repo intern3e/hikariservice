@@ -19,7 +19,11 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-!storage/app/
-!storage/app/public/
-!storage/app/public/**
+/storage/*
+!/storage/app
+/storage/app/*
+!/storage/app/public
+/storage/app/public/*
+!/storage/app/public/partner/**
+!/storage/app/public/partner
 /public/storage
