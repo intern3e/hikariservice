@@ -22,7 +22,7 @@
   <style>
     :root{
       --brand:#2563eb; --brand-dark:#1e40af; --brand-deep:#172554;
-      --ink:#0f172a; --muted:#64748b; --line:#e5e7eb; --bg:#ffffff;
+      --ink:#0f172a; --muted:#64748b; --line:#e2e8f0; --bg:#ffffff;
       --radius:14px; --header-h:74px; --max-w:1280px;
     }
     *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
@@ -75,7 +75,7 @@
     }
     .btn-quote:hover{ transform:translateY(-2px); }
 
-    /* PDF VIEWER */
+    /* ====== PDF VIEWER ====== */
     #pdfViewport{
       min-height: 90vh;
       padding: 24px 0 72px;
@@ -84,7 +84,6 @@
     }
     .a4-page{
       width: 100%;
-      /* max-width จะถูกตั้งค่าแบบไดนามิกด้วย JS ตามแนวกระดาษ: portrait = 210mm, landscape = 297mm */
       background:#fff;
       border-radius:18px;
       box-shadow:0 18px 40px rgba(15,23,42,.06);
@@ -134,11 +133,176 @@
       .a4-fit{ padding:10mm 8mm; }
     }
 
-    /* scrollbar ซ้าย */
+    /* ====== SCROLLBAR (ฝั่งซ้าย) ====== */
     @media (min-width:768px){
       .scroll-y::-webkit-scrollbar{ width:8px; }
       .scroll-y::-webkit-scrollbar-thumb{ background:#cbd5e1; border-radius:999px; }
       .scroll-y:hover::-webkit-scrollbar-thumb{ background:#94a3b8; }
+    }
+
+    /* ====== SIDE CATEGORY แบบเรียบ ๆ ====== */
+    .category-sidebar{
+      background:#ffffff;
+      border-radius:0;
+      border:1px solid var(--line);
+      box-shadow:0 4px 10px rgba(15,23,42,0.02);
+    }
+    .cat-header{
+      padding:0.75rem 1rem;
+      font-size:0.82rem;
+      font-weight:600;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:#475569;
+      background:#f8fafc;
+      border-bottom:1px solid var(--line);
+    }
+    .cat-list{
+      background:#ffffff;
+    }
+    .cat-item{
+      border-top:1px solid #f1f5f9;
+    }
+    .cat-item:first-of-type{
+      border-top:none;
+    }
+    .cat-item summary{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:0.75rem;
+      padding:0.7rem 1rem;
+      cursor:pointer;
+      user-select:none;
+      background:#ffffff;
+      transition:background-color .15s ease;
+    }
+    .cat-item summary:hover{
+      background:#f8fafc;
+    }
+    .cat-main{
+      display:flex;
+      align-items:center;
+      gap:0.7rem;
+      min-width:0;
+    }
+    .cat-icon{
+      width:auto;
+      height:auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      flex-shrink:0;
+      font-size:1.15rem;
+    }
+    .cat-title{
+      font-size:0.95rem;
+      font-weight:600;
+      color:#0f172a;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .cat-arrow{
+      font-size:0.85rem;
+      color:#cbd5e1;
+      transition:transform .2s ease;
+      flex-shrink:0;
+    }
+    .cat-item[open] .cat-arrow{
+      transform:rotate(90deg);
+    }
+
+    .cat-sub{
+      padding:0.15rem 1rem 0.6rem 2.6rem;
+      background:#ffffff;
+    }
+    .cat-sub-list{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:0.1rem;
+    }
+
+    .cat-chip{
+      width:100%;
+      text-align:left;
+      font-size:0.9rem;
+      padding:0.35rem 0;
+      border:none;
+      border-radius:0;
+      background:transparent;
+      color:#0f172a;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:0.4rem;
+      box-shadow:none;
+      transition:background-color .15s ease,color .15s ease;
+    }
+    .cat-chip span{
+      flex:1;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .cat-chip i{
+      font-size:0.9rem;
+      color:#cbd5e1;
+      flex-shrink:0;
+    }
+    .cat-chip:hover{
+      background:#f3f4f6;
+      color:#1d4ed8;
+    }
+    .cat-chip:hover i{
+      color:#94a3b8;
+    }
+
+    /* กลุ่มย่อยในแบตเตอรี่ */
+    .cat-sub-group{
+      background:transparent;
+      border-radius:0;
+      padding:0.1rem 0 0.3rem;
+      margin-bottom:0.2rem;
+      border-left:2px solid #e5e7eb;
+      padding-left:0.75rem;
+    }
+    .cat-sub-group summary{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.25rem 0;
+      cursor:pointer;
+      user-select:none;
+    }
+    .cat-sub-title{
+      font-size:0.9rem;
+      font-weight:600;
+      color:#0f172a;
+    }
+    .cat-sub-arrow{
+      font-size:0.8rem;
+      color:#cbd5e1;
+      transition:transform .2s ease;
+    }
+    .cat-sub-group[open] .cat-sub-arrow{
+      transform:rotate(90deg);
+    }
+    .cat-sub-inner{
+      padding:0.15rem 0 0.15rem;
+      display:flex;
+      flex-direction:column;
+      gap:0.1rem;
+    }
+
+    @media (max-width:768px){
+      .cat-sub{
+        padding-left:2.2rem;
+      }
     }
   </style>
 </head>
@@ -190,109 +354,131 @@
 
     $firstWithPdf = $servicesCollection->first(fn($s) => !empty($s->pdf));
     $defaultPdfPath = $firstWithPdf ? asset('storage/'.$firstWithPdf->pdf) : null;
-
-    $chipBox = 'flex items-center justify-center w-full h-auto min-h-10 px-4 py-2 rounded-xl border border-slate-200 bg-white/90 text-slate-700 shadow-sm transition hover:bg-blue-50 hover:border-blue-400 hover:text-blue-700 text-sm whitespace-normal break-words';
   @endphp
 
   <main class="max-w-7xl mx-auto px-3 md:px-6 py-6 grid grid-cols-1 md:grid-cols-[320px,1fr] gap-6">
-    <!-- ซ้าย: หมวดหมู่ -->
+    <!-- ซ้าย: เมนูหมวดหมู่ -->
     <aside>
-      <div class="md:max-h-[calc(100vh-8rem)] md:overflow-y-auto overscroll-contain pr-1 scroll-y space-y-4">
-        {{-- UPS --}}
-        @if($upsByBrand->isNotEmpty())
-        <section class="rounded-3xl border border-slate-200 bg-white p-4">
-          <div class="text-[11px] font-semibold tracking-[0.2em] text-slate-500 mb-2 uppercase">UPS</div>
-          <details class="border border-slate-200 rounded-2xl p-3 group" open>
-            <summary class="cursor-pointer font-semibold text-base flex justify-between items-center select-none">
-              <span>UPS เครื่องสำรองไฟ</span>
-              <i class="bi bi-chevron-down ml-2 text-slate-500 transition-transform duration-200 group-open:rotate-180"></i>
-            </summary>
-            <ul class="mt-3 grid grid-cols-2 gap-3 text-sm">
-              @foreach($upsByBrand as $brand => $items)
-                @php $file = $items->first(); @endphp
-                @if(!empty($file->pdf))
-                <li class="min-w-0">
-                  <button type="button" class="{{ $chipBox }}"
-                          data-pdf="{{ asset('storage/'.$file->pdf) }}"
-                          onclick="handlePdfClick(this)"
-                          title="{{ $brand }}">
-                    <span class="truncate">{{ $brand }}</span>
-                  </button>
-                </li>
-                @endif
-              @endforeach
-            </ul>
-          </details>
-        </section>
-        @endif
-
-        {{-- EMERGENCY --}}
-        @if($emerByBrand->isNotEmpty())
-        <section class="rounded-3xl border border-slate-200 bg-white p-4">
-          <div class="text-[11px] font-semibold tracking-[0.2em] text-slate-500 mb-2 uppercase">EMERGENCY</div>
-          <details class="border border-slate-200 rounded-2xl p-3 group" open>
-            <summary class="cursor-pointer font-semibold text-base flex justify-between items-center select-none">
-              <span>ไฟฉุกเฉินและป้ายหนีไฟ</span>
-              <i class="bi bi-chevron-down ml-2 text-slate-500 transition-transform duration-200 group-open:rotate-180"></i>
-            </summary>
-            <ul class="mt-3 grid grid-cols-2 gap-3 text-sm">
-              @foreach($emerByBrand as $brand => $items)
-                @php $file = $items->first(); @endphp
-                @if(!empty($file->pdf))
-                <li class="min-w-0">
-                  <button type="button" class="{{ $chipBox }}"
-                          data-pdf="{{ asset('storage/'.$file->pdf) }}"
-                          onclick="handlePdfClick(this)"
-                          title="{{ $brand }}">
-                    <span class="truncate">{{ $brand }}</span>
-                  </button>
-                </li>
-                @endif
-              @endforeach
-            </ul>
-          </details>
-        </section>
-        @endif
-
-        {{-- BATTERY --}}
-        @if($batteryByBrand->isNotEmpty())
-        <section class="rounded-3xl border border-slate-200 bg-white p-4">
-          <div class="text-[11px] font-semibold tracking-[0.2em] text-slate-500 mb-2 uppercase">BATTERY</div>
-          <details class="border border-slate-200 rounded-2xl p-3 group" open>
-            <summary class="cursor-pointer font-semibold text-base flex justify-between items-center select-none">
-              <span>แบตเตอรี่</span>
-              <i class="bi bi-chevron-down ml-2 text-slate-500 transition-transform duration-200 group-open:rotate-180"></i>
-            </summary>
-
-            <div class="mt-3 space-y-3 text-sm">
-              @foreach($batteryByBrand as $brand => $items)
-              <details class="border border-slate-200 rounded-xl p-3 group" open>
-                <summary class="cursor-pointer font-semibold flex justify-between items-center select-none">
-                  <span>{{ $brand }} Battery</span>
-                  <i class="bi bi-chevron-down text-slate-500 transition-transform duration-200 group-open:rotate-180"></i>
-                </summary>
-                <ul class="mt-2 grid grid-cols-1 gap-3">
-                  @foreach($items as $item)
-                    @if(!empty($item->pdf))
-                    <li class="min-w-0">
-                      <button type="button"
-                              class="{{ $chipBox }} justify-start text-left"
-                              data-pdf="{{ asset('storage/'.$item->pdf) }}"
-                              onclick="handlePdfClick(this)"
-                              title="{{ $item->name_brochure }}">
-                        <span class="leading-snug">{{ $item->name_brochure }}</span>
+      <div class="md:max-h-[calc(100vh-8rem)] md:overflow-y-auto overscroll-contain pr-1 scroll-y">
+        <nav class="category-sidebar" aria-label="หมวดหมู่โบรชัวร์">
+          <div class="cat-header">
+            หมวดหมู่โบรชัวร์สินค้า
+          </div>
+          <div class="cat-list">
+            {{-- UPS --}}
+            @if($upsByBrand->isNotEmpty())
+            <details class="cat-item" open>
+              <summary>
+                <div class="cat-main">
+                  <div class="cat-icon">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                  </div>
+                  <span class="cat-title">UPS เครื่องสำรองไฟ</span>
+                </div>
+                <i class="bi bi-chevron-right cat-arrow"></i>
+              </summary>
+              <div class="cat-sub">
+                <ul class="cat-sub-list">
+                  @foreach($upsByBrand as $brand => $items)
+                    @php $file = $items->first(); @endphp
+                    @if(!empty($file->pdf))
+                    <li>
+                      <button
+                        type="button"
+                        class="cat-chip"
+                        data-pdf="{{ asset('storage/'.$file->pdf) }}"
+                        onclick="handlePdfClick(this)"
+                        title="{{ $brand }}"
+                      >
+                        <span>{{ $brand }}</span>
+                        <i class="bi bi-file-earmark-pdf"></i>
                       </button>
                     </li>
                     @endif
                   @endforeach
                 </ul>
-              </details>
-              @endforeach
-            </div>
-          </details>
-        </section>
-        @endif
+              </div>
+            </details>
+            @endif
 
+            {{-- EMERGENCY --}}
+            @if($emerByBrand->isNotEmpty())
+            <details class="cat-item" open>
+              <summary>
+                <div class="cat-main">
+                  <div class="cat-icon">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                  </div>
+                  <span class="cat-title">ไฟฉุกเฉินและป้ายหนีไฟ</span>
+                </div>
+                <i class="bi bi-chevron-right cat-arrow"></i>
+              </summary>
+              <div class="cat-sub">
+                <ul class="cat-sub-list">
+                  @foreach($emerByBrand as $brand => $items)
+                    @php $file = $items->first(); @endphp
+                    @if(!empty($file->pdf))
+                    <li>
+                      <button
+                        type="button"
+                        class="cat-chip"
+                        data-pdf="{{ asset('storage/'.$file->pdf) }}"
+                        onclick="handlePdfClick(this)"
+                        title="{{ $brand }}"
+                      >
+                        <span>{{ $brand }}</span>
+                        <i class="bi bi-file-earmark-pdf"></i>
+                      </button>
+                    </li>
+                    @endif
+                  @endforeach
+                </ul>
+              </div>
+            </details>
+            @endif
+
+            {{-- BATTERY --}}
+            @if($batteryByBrand->isNotEmpty())
+            <details class="cat-item" open>
+              <summary>
+                <div class="cat-main">
+                  <div class="cat-icon">
+                    <i class="bi bi-battery-full"></i>
+                  </div>
+                  <span class="cat-title">แบตเตอรี่</span>
+                </div>
+                <i class="bi bi-chevron-right cat-arrow"></i>
+              </summary>
+              <div class="cat-sub">
+                @foreach($batteryByBrand as $brand => $items)
+                  <details class="cat-sub-group" open>
+                    <summary>
+                      <span class="cat-sub-title">{{ $brand }} Battery</span>
+                      <i class="bi bi-chevron-right cat-sub-arrow"></i>
+                    </summary>
+                    <div class="cat-sub-inner">
+                      @foreach($items as $item)
+                        @if(!empty($item->pdf))
+                        <button
+                          type="button"
+                          class="cat-chip"
+                          data-pdf="{{ asset('storage/'.$item->pdf) }}"
+                          onclick="handlePdfClick(this)"
+                          title="{{ $item->name_brochure }}"
+                        >
+                          <span>{{ $item->name_brochure }}</span>
+                          <i class="bi bi-file-earmark-pdf"></i>
+                        </button>
+                        @endif
+                      @endforeach
+                    </div>
+                  </details>
+                @endforeach
+              </div>
+            </details>
+            @endif
+          </div>
+        </nav>
       </div>
     </aside>
 
@@ -317,42 +503,31 @@
       const container = document.getElementById('pdfContainer');
       const DPR_LIMIT = 2;
 
-      /**
-       * เรนเดอร์ 1 หน้า โดยให้ wrapper (a4-page) ปรับ aspect-ratio ตามหน้าจริง
-       * และตั้ง max-width: portrait 210mm / landscape 297mm อัตโนมัติ
-       */
       async function renderOnePage(pdf, pageNum){
         const page = await pdf.getPage(pageNum);
-
-        // ใช้ rotation เดิมของไฟล์ (ถ้ามี) ไม่ฝืนหมุนเอง
         const rotation = (page.rotate || 0) % 360;
 
-        // viewport “อ้างอิง” ที่ scale = 1 เพื่อรู้สัดส่วนจริงของหน้า
         const ref = page.getViewport({ scale: 1, rotation });
-        const aspect = ref.width / ref.height; // >=1 = แนวนอน
+        const aspect = ref.width / ref.height;
 
-        // สร้าง wrapper และตั้ง aspect-ratio แบบไดนามิก
         const wrap = document.createElement('div');
         wrap.className = 'a4-page';
-        // แนวนอนใช้ max 297mm, แนวตั้งใช้ max 210mm
         const maxWmm = aspect >= 1 ? 297 : 210;
         wrap.style.maxWidth = maxWmm + 'mm';
-        wrap.style.aspectRatio = aspect.toFixed(6); // ให้ container สูงตามสัดส่วนจริง
+        wrap.style.aspectRatio = aspect.toFixed(6);
         const fit = document.createElement('div');
         fit.className = 'a4-fit';
         wrap.appendChild(fit);
         container.appendChild(wrap);
 
-        // คำนวณสเกลให้ภาพ “เต็มกรอบ” โดยคงสัดส่วน
         const rect = fit.getBoundingClientRect();
-        const cssW = rect.width  || (aspect >= 1 ? 1122 : 794);  // fallback px
+        const cssW = rect.width  || (aspect >= 1 ? 1122 : 794);
         const cssH = rect.height || (aspect >= 1 ? 794  : 1122);
         const dpr  = Math.min(window.devicePixelRatio || 1, DPR_LIMIT);
         const scale = Math.min((cssW * dpr) / ref.width, (cssH * dpr) / ref.height);
 
         const viewport = page.getViewport({ scale, rotation });
 
-        // สร้างแคนวาสแล้ววาด
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d', { alpha:false });
         canvas.width  = Math.ceil(viewport.width);
@@ -369,14 +544,12 @@
         await page.render({ canvasContext: ctx, viewport }).promise;
       }
 
-      // เรียกจากปุ่มด้านซ้าย
       window.handlePdfClick = function(btn){
         const pdfPath  = btn.dataset.pdf;
         if (!pdfPath) return;
         showPDF(pdfPath);
       };
 
-      // โหลด PDF
       window.showPDF = async function(pdfPath){
         container.innerHTML = `
           <div class="flex flex-col items-center justify-center my-10 text-slate-500 text-sm">
@@ -388,10 +561,7 @@
         try {
           const pdf = await pdfjsLib.getDocument(pdfPath).promise;
           container.innerHTML = '';
-          // โหลดทีละหน้า—แต่ทุกหน้าจะรักษาแนวจริง (portrait/landscape) ตามไฟล์
           for (let n = 1; n <= pdf.numPages; n++) {
-            // เรนเดอร์แล้วค่อย ๆ เติม เพื่อลื่น
-            // eslint-disable-next-line no-await-in-loop
             await renderOnePage(pdf, n);
           }
         } catch (e) {
@@ -405,7 +575,6 @@
         }
       };
 
-      // โหลดเริ่มต้น (ไฟล์แรกจาก DB ถ้ามี)
       document.addEventListener("DOMContentLoaded", function(){
         @if($firstWithPdf)
           showPDF(@json($defaultPdfPath));
@@ -419,5 +588,423 @@
       });
     })();
   </script>
+
+  <!-- ====== PowerCare Footer (ของเดิม) ====== -->
+  <style>
+  .powercare-footer {
+    position: relative;
+    color: #f9fafb;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  .powercare-footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .powercare-footer a:hover {
+    text-decoration: none;
+  }
+  .powercare-footer .pc-footer-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0a2356, #0b2a6b 45%, #0f4c75);
+    z-index: 0;
+  }
+  .powercare-footer .pc-footer-halos {
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .powercare-footer .pc-footer-inner {
+    position: relative;
+    z-index: 5;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 2.5rem;
+  }
+  @media (min-width: 640px) {
+    .powercare-footer .pc-footer-inner {
+      padding-top: 4rem;
+      padding-bottom: 3rem;
+    }
+  }
+  .powercare-footer .pc-footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem 2.5rem;
+    align-items: flex-start;
+  }
+  @media (min-width: 768px) {
+    .powercare-footer .pc-footer-grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    }
+  }
+  .powercare-footer .pc-footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .powercare-footer .pc-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fbbf24;
+  }
+  .powercare-footer .pc-title {
+    margin-top: 0.25rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+  @media (min-width: 640px) {
+    .powercare-footer .pc-title {
+      font-size: 1.875rem;
+    }
+  }
+  .powercare-footer .pc-tagline {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(241, 245, 249, 0.9);
+  }
+  .powercare-footer .pc-contact {
+    margin-top: 1.25rem;
+    font-style: normal;
+  }
+  .powercare-footer .pc-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  @media (min-width: 640px) {
+    .powercare-footer .pc-contact-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .powercare-footer .pc-contact-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.7rem;
+    background: rgba(255, 255, 255, 0.06);
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .powercare-footer .pc-contact-chip i {
+    font-size: 1rem;
+  }
+  .powercare-footer .pc-contact-chip:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.4);
+  }
+  .powercare-footer .pc-text-soft {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .powercare-footer .pc-b2b {
+    margin-top: 0.75rem;
+  }
+  .powercare-footer .pc-b2b-label {
+    font-weight: 600;
+    color: #fbbf24;
+    margin-bottom: 0.4rem;
+  }
+  .powercare-footer .pc-b2b-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    font-size: 0.93rem;
+  }
+  @media (min-width: 640px) {
+    .powercare-footer .pc-b2b-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .powercare-footer .pc-b2b-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .powercare-footer .pc-b2b-item i {
+    color: #fbbf24;
+  }
+  .powercare-footer .pc-map-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+  }
+  .powercare-footer .pc-map-header,
+  .powercare-footer .pc-map-footer {
+    padding: 1rem;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  @media (min-width: 640px) {
+    .powercare-footer .pc-map-header,
+    .powercare-footer .pc-map-footer {
+      padding-top: 1.25rem;
+      padding-bottom: 1.25rem;
+    }
+  }
+  .powercare-footer .pc-map-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .powercare-footer .pc-map-title {
+    font-weight: 600;
+  }
+  .powercare-footer .pc-button-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.9rem;
+    border-radius: 0.7rem;
+    background: #ffffff;
+    color: #0b2a6b;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .powercare-footer .pc-button-primary:hover {
+    background: #fbbf24;
+    color: #000;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.5);
+  }
+  .powercare-footer .pc-map-wrapper {
+    position: relative;
+    background: rgba(15, 23, 42, 0.6);
+    aspect-ratio: 16 / 10;
+  }
+  @media (min-width: 640px) {
+    .powercare-footer .pc-map-wrapper {
+      aspect-ratio: 16 / 9;
+    }
+  }
+  .powercare-footer .pc-map-badge {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .powercare-footer .pc-map-badge-inner {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.96);
+    padding: 0.45rem 0.75rem;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+  }
+  .powercare-footer .pc-map-badge-inner span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #0f172a;
+  }
+  .powercare-footer #gmap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .powercare-footer .pc-map-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .powercare-footer .pc-map-footer .pc-button-primary {
+    width: 100%;
+  }
+  @media (min-width: 640px) {
+    .powercare-footer .pc-map-footer {
+      display: none;
+    }
+  }
+  .powercare-footer .pc-bottom-bar {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: rgba(249, 250, 251, 0.85);
+  }
+  @media (min-width: 640px) {
+    .powercare-footer .pc-bottom-bar {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  .powercare-footer .pc-bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .powercare-footer .pc-bottom-links a {
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+  }
+  .powercare-footer .pc-bottom-links a:hover {
+    opacity: 1;
+  }
+  .powercare-footer .pc-bottom-separator {
+    opacity: 0.5;
+  }
+  .powercare-footer .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+  </style>
+
+  <footer class="powercare-footer" role="contentinfo" aria-label="PowerCare footer">
+    <div class="pc-footer-bg"></div>
+    <div
+      class="pc-footer-halos"
+      style="
+        background:
+          radial-gradient(900px 280px at 15% -10%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0)),
+          radial-gradient(700px 240px at 85% 110%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+      "
+    ></div>
+
+    <div class="pc-footer-inner">
+      <div class="pc-footer-grid">
+        <section class="pc-footer-brand">
+          <div>
+            <p class="pc-eyebrow">HikariDenki</p>
+            <h2 class="pc-title">Service by HikariDenki</h2>
+            <p class="pc-tagline">
+              โซลูชันระบบไฟสำรองสำหรับองค์กร — ติดตั้ง บำรุงรักษา ตรวจรับรอง โดยทีมวิศวกรมืออาชีพ
+            </p>
+          </div>
+
+          <address class="pc-contact">
+            <div class="pc-contact-grid">
+              <a href="tel:+66660975697" class="pc-contact-chip" aria-label="โทร 066-097-5697">
+                <i class="bi bi-telephone"></i>
+                <span>
+                  066-097-5697
+                  <span class="pc-text-soft">(คุณ ผักบุ้ง)</span>
+                </span>
+              </a>
+
+              <a href="tel:0990802197" class="pc-contact-chip">
+                <i class="bi bi-telephone"></i>
+                <span>
+                  099-080-2197
+                  <span class="pc-text-soft">(คุณ ผักบุ้ง)</span>
+                </span>
+              </a>
+
+              <a href="tel:021172995" class="pc-contact-chip">
+                <i class="bi bi-telephone-inbound"></i>
+                <span>
+                  02-117-2995
+                  <span class="pc-text-soft">(ติดต่อสำนักงาน)</span>
+                </span>
+              </a>
+
+              <a
+                href="mailto:Info@hikaripower.com"
+                class="pc-contact-chip"
+                rel="nofollow noopener"
+                onclick="return openEmail(event, 'Info@hikaripower.com', { subject: 'สอบถามสินค้าของ hikaridenki' });"
+              >
+                <i class="bi bi-envelope"></i>
+                <span>Info@hikaripower.com</span>
+              </a>
+            </div>
+
+            <div class="pc-b2b">
+              <p class="pc-b2b-label">พร้อมสำหรับงาน B2B</p>
+              <ul class="pc-b2b-list">
+                <li class="pc-b2b-item">
+                  <i class="bi bi-receipt-cutoff"></i>
+                  <span>ใบเสนอราคา / PO / ใบกำกับภาษี</span>
+                </li>
+                <li class="pc-b2b-item">
+                  <i class="bi bi-building-check"></i>
+                  <span>รองรับเครดิตเทอมองค์กร</span>
+                </li>
+                <li class="pc-b2b-item">
+                  <i class="bi bi-award"></i>
+                  <span>ทีมวิศวกรมีใบรับรอง</span>
+                </li>
+              </ul>
+            </div>
+          </address>
+        </section>
+
+        <section class="pc-footer-map">
+          <div class="pc-map-card">
+            <div class="pc-map-header">
+              <h3 class="pc-map-title">บริษัท ฮิคาริ เดงกิ จำกัด</h3>
+              <a
+                href="https://www.google.com/maps/place/%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5+%E0%B8%AD%E0%B8%B5+%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B9%89%E0%B8%87/@13.717683,100.473264,1929m/data=!3m1!1e3!4m6!3m5!1s0x30e2991a367db98b:0x4c961d180eb9153f!8m2!3d13.717683!4d100.4732644!16s%2Fg%2F1xg5q33q?hl=th&entry=ttu"
+                target="_blank"
+                rel="noopener"
+                class="pc-button-primary"
+                aria-label="เปิดตำแหน่งบน Google Maps"
+              >
+                <i class="bi bi-geo-alt-fill"></i>
+                <span>เปิดใน Google Maps</span>
+              </a>
+            </div>
+
+            <div class="pc-map-wrapper">
+              <div class="pc-map-badge">
+                <div class="pc-map-badge-inner">
+                  <span>บริษัท ฮิคาริ เดงกิ จำกัด</span>
+                </div>
+              </div>
+
+              <iframe
+                id="gmap"
+                src="https://www.google.com/maps?q=13.717683,100.473264&hl=th&z=17&output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+              ></iframe>
+            </div>
+
+            <div class="pc-map-footer">
+              <a
+                href="https://www.google.com/maps/place/%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5+%E0%B8%AD%E0%B8%B5+%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B9%89%E0%B8%87/@13.717683,100.473264,1929m/data=!3m1!1e3!4m6!3m5!1s0x30e2991a367db98b:0x4c961d180eb9153f!8m2!3d13.717683!4d100.4732644!16s%2Fg%2F1xg5q33q?hl=th&entry=ttu"
+                target="_blank"
+                rel="noopener"
+                class="pc-button-primary"
+              >
+                <i class="bi bi-map"></i>
+                <span>เปิดใน Google Maps</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="pc-bottom-bar">
+        <p>
+          © <span class="tabular-nums">{{ date('Y') }}</span> Service by HikariDenki. สงวนลิขสิทธิ์.
+        </p>
+        <div class="pc-bottom-links">
+          <a href="#">นโยบายความเป็นส่วนตัว</a>
+          <span class="pc-bottom-separator">•</span>
+          <a href="#">ข้อตกลงการใช้งาน</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
