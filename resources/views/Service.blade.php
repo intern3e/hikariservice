@@ -40,6 +40,11 @@
       box-shadow:0 2px 8px rgba(0,0,0,0.05);
       transition:all .3s ease;
     }
+    header.scrolled{
+      background:rgba(255,255,255,0.95);
+      box-shadow:0 4px 20px rgba(0,0,0,0.08);
+    }
+
     .nav-container{
       max-width:var(--max-w); margin-inline:auto;
       padding:0 16px; height:var(--header-h);
@@ -74,6 +79,7 @@
       box-shadow:0 4px 12px rgba(37,99,235,0.25); transition:.25s;
     }
     .btn-quote:hover{ transform:translateY(-2px); }
+    .btn-quote.wide{ display:block; text-align:center; padding:14px 18px; border-radius:16px; }
 
     /* ====== PDF VIEWER ====== */
     #pdfViewport{
@@ -85,7 +91,7 @@
     .a4-page{
       width: 100%;
       background:#fff;
-      border-radius:18px;
+      border-radius:0px;
       box-shadow:0 18px 40px rgba(15,23,42,.06);
       margin: 0 auto 32px;
       position:relative;
@@ -94,7 +100,7 @@
     .a4-fit{
       position:absolute;
       inset:0;
-      padding:12mm 10mm;
+      padding:0;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -105,7 +111,7 @@
       width:auto;
       height:auto;
       display:block;
-      border-radius:8px;
+      border-radius:0px;
     }
     .page-meta{
       position:absolute;
@@ -130,7 +136,6 @@
 
     @media (max-width:640px){
       #pdfViewport{ min-height: 82vh; padding-bottom: 96px; }
-      .a4-fit{ padding:10mm 8mm; }
     }
 
     /* ====== SCROLLBAR (ฝั่งซ้าย) ====== */
@@ -140,7 +145,7 @@
       .scroll-y:hover::-webkit-scrollbar-thumb{ background:#94a3b8; }
     }
 
-    /* ====== SIDE CATEGORY แบบเรียบ ๆ ====== */
+    /* ====== SIDE CATEGORY ====== */
     .category-sidebar{
       background:#ffffff;
       border-radius:0;
@@ -157,15 +162,9 @@
       background:#f8fafc;
       border-bottom:1px solid var(--line);
     }
-    .cat-list{
-      background:#ffffff;
-    }
-    .cat-item{
-      border-top:1px solid #f1f5f9;
-    }
-    .cat-item:first-of-type{
-      border-top:none;
-    }
+    .cat-list{ background:#ffffff; }
+    .cat-item{ border-top:1px solid #f1f5f9; }
+    .cat-item:first-of-type{ border-top:none; }
     .cat-item summary{
       list-style:none;
       display:flex;
@@ -178,9 +177,7 @@
       background:#ffffff;
       transition:background-color .15s ease;
     }
-    .cat-item summary:hover{
-      background:#f8fafc;
-    }
+    .cat-item summary:hover{ background:#f8fafc; }
     .cat-main{
       display:flex;
       align-items:center;
@@ -240,7 +237,7 @@
       justify-content:space-between;
       gap:0.4rem;
       box-shadow:none;
-      transition:background-color .15s ease,color .15s ease;
+      transition:background-color .15s ease,color .15s.ease;
     }
     .cat-chip span{
       flex:1;
@@ -257,11 +254,8 @@
       background:#f3f4f6;
       color:#1d4ed8;
     }
-    .cat-chip:hover i{
-      color:#94a3b8;
-    }
+    .cat-chip:hover i{ color:#94a3b8; }
 
-    /* กลุ่มย่อยในแบตเตอรี่ */
     .cat-sub-group{
       background:transparent;
       border-radius:0;
@@ -304,10 +298,353 @@
         padding-left:2.2rem;
       }
     }
+
+    /* ===== Drawer (mobile) ===== */
+    .burger{
+      margin-left:auto; width:36px; height:36px;
+      border:0; background:transparent; cursor:pointer;
+      display:none; place-items:center; color:#0b132a;
+    }
+    .burger svg{ width:22px; height:22px; display:block; }
+    .burger[aria-expanded="false"] .close-icon{ display:none; }
+    .burger[aria-expanded="true"]  .burger-icon{ display:none; }
+
+    #backdrop{
+      position:fixed; inset:0; background:rgba(15,23,42,.38);
+      opacity:0; visibility:hidden; transition:opacity .2s ease; z-index:60;
+    }
+    #backdrop.show{ opacity:1; visibility:visible; }
+
+    #drawer{
+      position:fixed; top:0; right:0; height:100dvh; width:min(420px,88vw);
+      background:#fff; box-shadow:-16px 0 32px rgba(15,23,42,.12);
+      transform:translateX(100%); transition:transform .28s ease; z-index:61;
+      display:flex; flex-direction:column;
+    }
+    #drawer.open{ transform:translateX(0); }
+    .drawer-head{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 18px; border-bottom:1px solid var(--line);
+    }
+    .drawer-brand{ display:flex; align-items:center; gap:10px; }
+    .drawer-brand img{ height:34px; border-radius:8px; }
+    .drawer-close{ font-size:20px; border:0; background:transparent; cursor:pointer; color:#0b132a; }
+
+    .drawer-body{
+      padding:16px 18px 22px; overflow:auto; display:grid; gap:16px;
+    }
+    .drawer-nav ul{ list-style:none; display:grid; gap:10px; }
+    .drawer-nav a{
+      text-decoration:none; color:#0b132a; font-weight:800;
+      padding:10px 4px; display:block;
+    }
+    .drawer-nav a.active,.drawer-nav a:hover{ color:var(--brand-dark); }
+
+    .drawer-contacts{ display:grid; gap:12px; margin-top:6px; }
+    .pill{
+      display:block; padding:14px 16px; border:1px solid var(--line);
+      border-radius:999px; text-decoration:none; color:#0b132a;
+      font-weight:700; background:#fff;
+    }
+
+    @media (max-width:1024px){
+      .nav-desktop{ display:none; }
+      .right{ display:none; }
+      .burger{ display:inline-grid; }
+    }
+    @media (min-width:1025px){
+      #drawer, #backdrop{ display:none; }
+      .burger{ display:none; }
+    }
+
+    body.no-scroll{ overflow:hidden; }
+
+    /* ===== Footer (เดิม) ===== */
+    .powercare-footer {
+      position: relative;
+      color: #f9fafb;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .powercare-footer a { color: inherit; text-decoration: none; }
+    .powercare-footer a:hover { text-decoration: none; }
+    .powercare-footer .pc-footer-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0a2356, #0b2a6b 45%, #0f4c75);
+      z-index: 0;
+    }
+    .powercare-footer .pc-footer-halos {
+      position: absolute;
+      inset: 0;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .powercare-footer .pc-footer-inner {
+      position: relative;
+      z-index: 5;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 2.5rem;
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-footer-inner {
+        padding-top: 4rem;
+        padding-bottom: 3rem;
+      }
+    }
+    .powercare-footer .pc-footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem 2.5rem;
+      align-items: flex-start;
+    }
+    @media (min-width: 768px) {
+      .powercare-footer .pc-footer-grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      }
+    }
+    .powercare-footer .pc-footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .powercare-footer .pc-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #fbbf24;
+    }
+    .powercare-footer .pc-title {
+      margin-top: 0.25rem;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-title {
+        font-size: 1.875rem;
+      }
+    }
+    .powercare-footer .pc-tagline {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(241, 245, 249, 0.9);
+    }
+    .powercare-footer .pc-contact {
+      margin-top: 1.25rem;
+      font-style: normal;
+    }
+    .powercare-footer .pc-contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .powercare-footer .pc-contact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.7rem;
+      background: rgba(255, 255, 255, 0.06);
+      transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .powercare-footer .pc-contact-chip i { font-size: 1rem; }
+    .powercare-footer .pc-contact-chip:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.4);
+    }
+    .powercare-footer .pc-text-soft { color: rgba(255, 255, 255, 0.75); }
+    .powercare-footer .pc-b2b { margin-top: 0.75rem; }
+    .powercare-footer .pc-b2b-label {
+      font-weight: 600;
+      color: #fbbf24;
+      margin-bottom: 0.4rem;
+    }
+    .powercare-footer .pc-b2b-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+      font-size: 0.93rem;
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-b2b-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .powercare-footer .pc-b2b-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .powercare-footer .pc-b2b-item i { color: #fbbf24; }
+    .powercare-footer .pc-map-card {
+      border-radius: 1rem;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+    }
+    .powercare-footer .pc-map-header,
+    .powercare-footer .pc-map-footer {
+      padding: 1rem;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-map-header,
+      .powercare-footer .pc-map-footer {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+      }
+    }
+    .powercare-footer .pc-map-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .powercare-footer .pc-map-title { font-weight: 600; }
+    .powercare-footer .pc-button-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.9rem;
+      border-radius: 0.7rem;
+      background: #ffffff;
+      color: #0b2a6b;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .powercare-footer .pc-button-primary:hover {
+      background: #fbbf24;
+      color: #000;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.5);
+    }
+    .powercare-footer .pc-map-wrapper {
+      position: relative;
+      background: rgba(15, 23, 42, 0.6);
+      aspect-ratio: 16 / 10;
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-map-wrapper { aspect-ratio: 16 / 9; }
+    }
+    .powercare-footer .pc-map-badge {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .powercare-footer .pc-map-badge-inner {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      border-radius: 0.75rem;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 0.45rem 0.75rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+    .powercare-footer .pc-map-badge-inner span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #0f172a;
+    }
+    .powercare-footer #gmap {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .powercare-footer .pc-map-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .powercare-footer .pc-map-footer .pc-button-primary { width: 100%; }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-map-footer { display: none; }
+    }
+    .powercare-footer .pc-bottom-bar {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: flex-start;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: rgba(249, 250, 251, 0.85);
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-bottom-bar {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+    .powercare-footer .pc-bottom-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .powercare-footer .pc-bottom-links a {
+      opacity: 0.9;
+      transition: opacity 0.2s.ease;
+    }
+    .powercare-footer .pc-bottom-links a:hover { opacity: 1; }
+    .powercare-footer .pc-bottom-separator { opacity: 0.5; }
+    .powercare-footer .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* LINE badge */
+    .line-chip{
+      background:#06C755;
+      color:#ffffff;
+      padding:4px 12px;
+      border-radius:8px;
+      font-weight:600;
+      display:inline-block;
+      text-decoration:none;
+      font-size:0.9rem;
+    }
   </style>
 </head>
 
 <body>
+@php
+    $servicesCollection = collect($services ?? []);
+    $normalize = fn($v) => str_replace(' ', '', trim($v ?? ''));
+
+    $upsByBrand = $servicesCollection
+        ->filter(fn($s) => $normalize($s->category) === $normalize('UPSเครื่องสำรองไฟ'))
+        ->groupBy('brand')->sortKeys();
+
+    $emerByBrand = $servicesCollection
+        ->filter(fn($s) => $normalize($s->category) === $normalize('ไฟฉุกเฉินและป้ายหนีไฟ'))
+        ->groupBy('brand')->sortKeys();
+
+    $batteryByBrand = $servicesCollection
+        ->filter(fn($s) => $normalize($s->category) === $normalize('แบตเตอรี่'))
+        ->groupBy('brand')->sortKeys();
+
+    $defaultPdfPath = asset('storage/partner/h.pdf');
+@endphp
+
   <!-- HEADER -->
   <header id="header">
     <div class="nav-container">
@@ -330,35 +667,217 @@
             066-097-5697 <span class="text-black/75">(คุณ ผักบุ้ง)</span>
           </a>
         </div>
-        <div class="contact-item"><a href="mailto:Info@hikaripower.com">Info@hikaripower.com</a></div>
-        <a class="btn-quote" href="#contact">ขอใบเสนอราคา</a>
+
+        <div class="contact-item">
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=Info@hikaripower.com&su=ขอใบเสนอราคา"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Info@hikaripower.com
+          </a>
+        </div>
+
+        <!-- LINE desktop -->
+        <div>
+          <a
+            href="https://line.me/R/ti/p/@hikaridenki"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="line-chip"
+            onclick="openLine(event)"
+          >
+            LINE
+          </a>
+        </div>
+
+        <a
+          class="btn-quote"
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=Info@hikaripower.com&su=ขอใบเสนอราคา"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ขอใบเสนอราคา
+        </a>
       </div>
+
+      <!-- 3 ขีดแบบ SVG (มือถือ) -->
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+        <svg class="burger-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"
+                stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        </svg>
+        <svg class="close-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6L18 18M6 18L18 6"
+                stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </button>
     </div>
   </header>
 
-  @php
-    $servicesCollection = collect($services ?? []);
-    $normalize = fn($v) => str_replace(' ', '', trim($v ?? ''));
+  <!-- Backdrop + Drawer -->
+  <div id="backdrop" aria-hidden="true"></div>
+  <aside id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <div class="drawer-head">
+      <div class="drawer-brand">
+        <img src="{{ asset('storage/logohikari.png') }}" alt="Hikari Denki">
+        <strong id="drawerTitle">HikariDenki</strong>
+      </div>
+      <button id="drawerClose" class="drawer-close" aria-label="Close menu">✕</button>
+    </div>
 
-    $upsByBrand = $servicesCollection
-        ->filter(fn($s) => $normalize($s->category) === $normalize('UPSเครื่องสำรองไฟ'))
-        ->groupBy('brand')->sortKeys();
+    <div class="drawer-body">
+      <!-- เมนูหลัก -->
+      <nav class="drawer-nav">
+        <ul>
+          <li><a href="{{ url('/') }}">หน้าแรก</a></li>
+          <li><a href="{{ url('service') }}" class="active">บริการ</a></li>
+          <li><a href="{{ url('about') }}">เกี่ยวกับเรา</a></li>
+        </ul>
+      </nav>
 
-    $emerByBrand = $servicesCollection
-        ->filter(fn($s) => $normalize($s->category) === $normalize('ไฟฉุกเฉินและป้ายหนีไฟ'))
-        ->groupBy('brand')->sortKeys();
+      <!-- ติดต่อ (มือถือ) -->
+      <div class="drawer-contacts">
+        <a class="pill" href="tel:0990802197">📞 099-080-2197</a>
+        <a class="pill" href="mailto:Info@hikaripower.com">✉️ Info@hikaripower.com</a>
+        <a class="pill" href="https://line.me/R/ti/p/@hikaridenki" target="_blank" rel="noopener">💬 LINE</a>
+      </div>
 
-    $batteryByBrand = $servicesCollection
-        ->filter(fn($s) => $normalize($s->category) === $normalize('แบตเตอรี่'))
-        ->groupBy('brand')->sortKeys();
+      <a class="btn-quote wide"
+         href="https://mail.google.com/mail/?view=cm&fs=1&to=Info@hikaripower.com&su=ขอใบเสนอราคา"
+         target="_blank" rel="noopener noreferrer">
+        ขอใบเสนอราคา
+      </a>
 
-    $firstWithPdf = $servicesCollection->first(fn($s) => !empty($s->pdf));
-    $defaultPdfPath = $firstWithPdf ? asset('storage/'.$firstWithPdf->pdf) : null;
-  @endphp
+      <!-- หมวดหมู่โบรชัวร์ สำหรับมือถือ (ย้ายมาอยู่ใน 3 ขีด) -->
+      <hr class="my-4 border-slate-200">
 
+      <nav class="category-sidebar" aria-label="หมวดหมู่โบรชัวร์สินค้า (มือถือ)">
+        <div class="cat-header">
+          หมวดหมู่โบรชัวร์สินค้า
+        </div>
+        <div class="cat-list">
+          {{-- UPS --}}
+          @if($upsByBrand->isNotEmpty())
+          <details class="cat-item" open>
+            <summary>
+              <div class="cat-main">
+                <div class="cat-icon">
+                  <i class="bi bi-lightning-charge-fill"></i>
+                </div>
+                <span class="cat-title">UPS เครื่องสำรองไฟ</span>
+              </div>
+              <i class="bi bi-chevron-right cat-arrow"></i>
+            </summary>
+            <div class="cat-sub">
+              <ul class="cat-sub-list">
+                @foreach($upsByBrand as $brand => $items)
+                  @php $file = $items->first(); @endphp
+                  @if(!empty($file->pdf))
+                  <li>
+                    <button
+                      type="button"
+                      class="cat-chip"
+                      data-pdf="{{ asset('storage/'.$file->pdf) }}"
+                      onclick="handlePdfClick(this)"
+                      title="{{ $brand }}"
+                    >
+                      <span>{{ $brand }}</span>
+                      <i class="bi bi-file-earmark-pdf"></i>
+                    </button>
+                  </li>
+                  @endif
+                @endforeach
+              </ul>
+            </div>
+          </details>
+          @endif
+
+          {{-- EMERGENCY --}}
+          @if($emerByBrand->isNotEmpty())
+          <details class="cat-item" open>
+            <summary>
+              <div class="cat-main">
+                <div class="cat-icon">
+                  <i class="bi bi-exclamation-triangle-fill"></i>
+                </div>
+                <span class="cat-title">ไฟฉุกเฉินและป้ายหนีไฟ</span>
+              </div>
+              <i class="bi bi-chevron-right cat-arrow"></i>
+            </summary>
+            <div class="cat-sub">
+              <ul class="cat-sub-list">
+                @foreach($emerByBrand as $brand => $items)
+                  @php $file = $items->first(); @endphp
+                  @if(!empty($file->pdf))
+                  <li>
+                    <button
+                      type="button"
+                      class="cat-chip"
+                      data-pdf="{{ asset('storage/'.$file->pdf) }}"
+                      onclick="handlePdfClick(this)"
+                      title="{{ $brand }}"
+                    >
+                      <span>{{ $brand }}</span>
+                      <i class="bi bi-file-earmark-pdf"></i>
+                    </button>
+                  </li>
+                  @endif
+                @endforeach
+              </ul>
+            </div>
+          </details>
+          @endif
+
+          {{-- BATTERY --}}
+          @if($batteryByBrand->isNotEmpty())
+          <details class="cat-item" open>
+            <summary>
+              <div class="cat-main">
+                <div class="cat-icon">
+                  <i class="bi bi-battery-full"></i>
+                </div>
+                <span class="cat-title">แบตเตอรี่</span>
+              </div>
+              <i class="bi bi-chevron-right cat-arrow"></i>
+            </summary>
+            <div class="cat-sub">
+              @foreach($batteryByBrand as $brand => $items)
+                <details class="cat-sub-group" open>
+                  <summary>
+                    <span class="cat-sub-title">{{ $brand }} Battery</span>
+                    <i class="bi bi-chevron-right cat-sub-arrow"></i>
+                  </summary>
+                  <div class="cat-sub-inner">
+                    @foreach($items as $item)
+                      @if(!empty($item->pdf))
+                      <button
+                        type="button"
+                        class="cat-chip"
+                        data-pdf="{{ asset('storage/'.$item->pdf) }}"
+                        onclick="handlePdfClick(this)"
+                        title="{{ $item->name_brochure }}"
+                      >
+                        <span>{{ $item->name_brochure }}</span>
+                        <i class="bi bi-file-earmark-pdf"></i>
+                      </button>
+                      @endif
+                    @endforeach
+                  </div>
+                </details>
+              @endforeach
+            </div>
+          </details>
+          @endif
+        </div>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
   <main class="max-w-7xl mx-auto px-3 md:px-6 py-6 grid grid-cols-1 md:grid-cols-[320px,1fr] gap-6">
-    <!-- ซ้าย: เมนูหมวดหมู่ -->
-    <aside>
+    <!-- ซ้าย: เมนูหมวดหมู่ (เฉพาะ PC/แท็บเล็ต) -->
+    <aside class="hidden md:block">
       <div class="md:max-h-[calc(100vh-8rem)] md:overflow-y-auto overscroll-contain pr-1 scroll-y">
         <nav class="category-sidebar" aria-label="หมวดหมู่โบรชัวร์">
           <div class="cat-header">
@@ -488,7 +1007,6 @@
         <div id="pdfContainer" class="mx-auto px-2 py-4"></div>
       </div>
     </section>
-
   </main>
 
   <!-- PDF.js renderer -->
@@ -576,298 +1094,81 @@
       };
 
       document.addEventListener("DOMContentLoaded", function(){
-        @if($firstWithPdf)
-          showPDF(@json($defaultPdfPath));
-        @else
+        const initialPdf = @json($defaultPdfPath);
+        if (initialPdf) {
+          showPDF(initialPdf);
+        } else {
           container.innerHTML = `
             <div class="flex flex-col items-center justify-center my-10 text-slate-500 text-sm">
               ยังไม่มีไฟล์ PDF ให้แสดง
             </div>
           `;
-        @endif
+        }
       });
     })();
   </script>
 
-  <!-- ====== PowerCare Footer (ของเดิม) ====== -->
-  <style>
-  .powercare-footer {
-    position: relative;
-    color: #f9fafb;
-    overflow: hidden;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-  .powercare-footer a {
-    color: inherit;
-    text-decoration: none;
-  }
-  .powercare-footer a:hover {
-    text-decoration: none;
-  }
-  .powercare-footer .pc-footer-bg {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #0a2356, #0b2a6b 45%, #0f4c75);
-    z-index: 0;
-  }
-  .powercare-footer .pc-footer-halos {
-    position: absolute;
-    inset: 0;
-    opacity: 0.12;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .powercare-footer .pc-footer-inner {
-    position: relative;
-    z-index: 5;
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem 2.5rem;
-  }
-  @media (min-width: 640px) {
-    .powercare-footer .pc-footer-inner {
-      padding-top: 4rem;
-      padding-bottom: 3rem;
-    }
-  }
-  .powercare-footer .pc-footer-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem 2.5rem;
-    align-items: flex-start;
-  }
-  @media (min-width: 768px) {
-    .powercare-footer .pc-footer-grid {
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    }
-  }
-  .powercare-footer .pc-footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .powercare-footer .pc-eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #fbbf24;
-  }
-  .powercare-footer .pc-title {
-    margin-top: 0.25rem;
-    font-size: 1.5rem;
-    font-weight: 800;
-  }
-  @media (min-width: 640px) {
-    .powercare-footer .pc-title {
-      font-size: 1.875rem;
-    }
-  }
-  .powercare-footer .pc-tagline {
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: rgba(241, 245, 249, 0.9);
-  }
-  .powercare-footer .pc-contact {
-    margin-top: 1.25rem;
-    font-style: normal;
-  }
-  .powercare-footer .pc-contact-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-  @media (min-width: 640px) {
-    .powercare-footer .pc-contact-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  .powercare-footer .pc-contact-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.7rem;
-    background: rgba(255, 255, 255, 0.06);
-    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .powercare-footer .pc-contact-chip i {
-    font-size: 1rem;
-  }
-  .powercare-footer .pc-contact-chip:hover {
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-1px);
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.4);
-  }
-  .powercare-footer .pc-text-soft {
-    color: rgba(255, 255, 255, 0.75);
-  }
-  .powercare-footer .pc-b2b {
-    margin-top: 0.75rem;
-  }
-  .powercare-footer .pc-b2b-label {
-    font-weight: 600;
-    color: #fbbf24;
-    margin-bottom: 0.4rem;
-  }
-  .powercare-footer .pc-b2b-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
-    font-size: 0.93rem;
-  }
-  @media (min-width: 640px) {
-    .powercare-footer .pc-b2b-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  .powercare-footer .pc-b2b-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .powercare-footer .pc-b2b-item i {
-    color: #fbbf24;
-  }
-  .powercare-footer .pc-map-card {
-    border-radius: 1rem;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
-  }
-  .powercare-footer .pc-map-header,
-  .powercare-footer .pc-map-footer {
-    padding: 1rem;
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-  @media (min-width: 640px) {
-    .powercare-footer .pc-map-header,
-    .powercare-footer .pc-map-footer {
-      padding-top: 1.25rem;
-      padding-bottom: 1.25rem;
-    }
-  }
-  .powercare-footer .pc-map-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  .powercare-footer .pc-map-title {
-    font-weight: 600;
-  }
-  .powercare-footer .pc-button-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.9rem;
-    font-size: 0.9rem;
-    border-radius: 0.7rem;
-    background: #ffffff;
-    color: #0b2a6b;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .powercare-footer .pc-button-primary:hover {
-    background: #fbbf24;
-    color: #000;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.5);
-  }
-  .powercare-footer .pc-map-wrapper {
-    position: relative;
-    background: rgba(15, 23, 42, 0.6);
-    aspect-ratio: 16 / 10;
-  }
-  @media (min-width: 640px) {
-    .powercare-footer .pc-map-wrapper {
-      aspect-ratio: 16 / 9;
-    }
-  }
-  .powercare-footer .pc-map-badge {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-  .powercare-footer .pc-map-badge-inner {
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    border-radius: 0.75rem;
-    background: rgba(255, 255, 255, 0.96);
-    padding: 0.45rem 0.75rem;
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.45);
-    border: 1px solid rgba(15, 23, 42, 0.08);
-  }
-  .powercare-footer .pc-map-badge-inner span {
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.3;
-    color: #0f172a;
-  }
-  .powercare-footer #gmap {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-  .powercare-footer .pc-map-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  .powercare-footer .pc-map-footer .pc-button-primary {
-    width: 100%;
-  }
-  @media (min-width: 640px) {
-    .powercare-footer .pc-map-footer {
-      display: none;
-    }
-  }
-  .powercare-footer .pc-bottom-bar {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: flex-start;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    color: rgba(249, 250, 251, 0.85);
-  }
-  @media (min-width: 640px) {
-    .powercare-footer .pc-bottom-bar {
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-  .powercare-footer .pc-bottom-links {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .powercare-footer .pc-bottom-links a {
-    opacity: 0.9;
-    transition: opacity 0.2s ease;
-  }
-  .powercare-footer .pc-bottom-links a:hover {
-    opacity: 1;
-  }
-  .powercare-footer .pc-bottom-separator {
-    opacity: 0.5;
-  }
-  .powercare-footer .tabular-nums {
-    font-variant-numeric: tabular-nums;
-  }
-  </style>
+  <!-- HEADER / DRAWER / LINE & EMAIL helpers -->
+  <script>
+    // sticky header
+    const headerEl = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      headerEl.classList.toggle('scrolled', window.scrollY > 20);
+    });
 
+    // Drawer controls
+    const burger = document.getElementById('burger');
+    const drawer = document.getElementById('drawer');
+    const backdrop = document.getElementById('backdrop');
+    const drawerClose = document.getElementById('drawerClose');
+
+    function openDrawer() {
+      burger.setAttribute('aria-expanded','true');
+      drawer.classList.add('open');
+      backdrop.classList.add('show');
+      document.body.classList.add('no-scroll');
+    }
+    function closeDrawer() {
+      burger.setAttribute('aria-expanded','false');
+      drawer.classList.remove('open');
+      backdrop.classList.remove('show');
+      document.body.classList.remove('no-scroll');
+    }
+
+    burger.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+    window.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
+    // LINE open (ใช้ได้ทั้ง desktop / mobile)
+    function openLine(event){
+      event.preventDefault();
+      var lineAppUrl = "line://ti/p/@hikaridenki";
+      var lineWebUrl = "https://line.me/R/ti/p/@hikaridenki";
+      var start = Date.now();
+      window.location.href = lineAppUrl;
+      setTimeout(function () {
+        if (Date.now() - start < 1500) {
+          window.open(lineWebUrl, "_blank");
+        }
+      }, 1000);
+    }
+
+    // mail helper (ใช้ใน footer)
+    function openEmail(e, address, opts) {
+      e.preventDefault();
+      opts = opts || {};
+      const params = new URLSearchParams();
+      if (opts.subject) params.append('subject', opts.subject);
+      if (opts.body) params.append('body', opts.body);
+      const qs = params.toString();
+      window.location.href = 'mailto:' + address + (qs ? '?' + qs : '');
+      return false;
+    }
+  </script>
+
+  <!-- FOOTER -->
   <footer class="powercare-footer" role="contentinfo" aria-label="PowerCare footer">
     <div class="pc-footer-bg"></div>
     <div

@@ -272,7 +272,7 @@
     /* Services Grid */
     .services-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(350px,1fr)); /* PC เหมือนเดิม */
       gap:2.5rem;
     }
 
@@ -302,20 +302,18 @@
     .service-card p{
       color:#666; line-height:1.8; font-size:1.05rem;
     }
-  </style>
 
-  <!-- Service thumb images -->
-  <style>
+    /* Service thumb images — PC layout เหมือนเดิม */
     .service-thumb {
       position: relative;
       width: 350px;
       height: 220px;
+      margin: 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
     }
-
     .service-thumb img.service-img {
       position: absolute;
       inset: 0;
@@ -326,30 +324,46 @@
       display: block;
       transition: opacity 0.45s ease-in-out;
     }
-
     .service-thumb img.overlay {
       opacity: 0;
     }
-  </style>
 
-  <!-- Partners slider (2 แถว, ทิศทางสวนกัน) -->
-  <style>
+    /* ปรับนิดหน่อยเฉพาะจอเล็ก ไม่ไปยุ่ง layout PC */
+    @media (max-width:768px){
+      .service-card{
+        padding:1.75rem;
+      }
+      .section-header h2{
+        font-size:2.2rem;
+      }
+      .service-thumb{
+        width:100%;
+        max-width:100%;
+        height:auto;
+        aspect-ratio:16/10;
+      }
+      .service-thumb img.service-img{
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+      }
+    }
+
+    /* Partners slider */
     .partners-section {
       padding: 80px 0;
       background: #f3f4f6;
     }
-
     .partner-inner {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px;
     }
-
     .partners-section .section-header {
       text-align: center;
       margin-bottom: 32px;
     }
-
     .partners-section .section-header h2 {
       font-size: clamp(1.9rem, 2.4vw, 2.2rem);
       margin: 0 0 6px;
@@ -357,7 +371,6 @@
       color: #111827;
       letter-spacing: 0.02em;
     }
-
     .partners-section .section-header p {
       margin: 0 auto;
       max-width: 720px;
@@ -365,17 +378,12 @@
       font-size: 0.96rem;
       line-height: 1.7;
     }
-
     .partner-slider {
       display: flex;
       flex-direction: column;
       gap: 24px;
     }
-
-    .partner-row {
-      overflow: hidden;
-    }
-
+    .partner-row { overflow: hidden; }
     .partner-track {
       display: flex;
       align-items: center;
@@ -384,18 +392,13 @@
       overflow-x: scroll;
       scrollbar-width: none;
     }
-    .partner-track::-webkit-scrollbar {
-      display: none;
-    }
-
-    /* ให้เห็นประมาณ 5 โลโก้ต่อแถว (100 / 5) */
+    .partner-track::-webkit-scrollbar { display: none; }
     .partner-item {
       flex: 0 0 20%;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
     .partner-item img {
       max-width: 80%;
       max-height: 80px;
@@ -405,43 +408,33 @@
       opacity: 0.9;
       filter: grayscale(0.1);
     }
-
     .partner-item:hover img {
       transform: translateY(-4px);
       opacity: 1;
       filter: none;
     }
-
     @media (max-width: 768px) {
-      .partner-item img {
-        max-height: 64px;
-      }
+      .partner-item img { max-height: 64px; }
     }
-  </style>
 
-  <!-- Footer -->
-  <style>
+    /* Footer */
     .powercare-footer {
       position: relative;
       color: #f9fafb;
       overflow: hidden;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-
     .powercare-footer a { color: inherit; text-decoration: none; }
     .powercare-footer a:hover { text-decoration: none; }
-
     .powercare-footer .pc-footer-bg {
       position: absolute; inset: 0;
       background: linear-gradient(135deg, #0a2356, #0b2a6b 45%, #0f4c75);
       z-index: 0;
     }
-
     .powercare-footer .pc-footer-halos {
       position: absolute; inset: 0;
       opacity: 0.12; pointer-events: none; z-index: 1;
     }
-
     .powercare-footer .pc-footer-inner {
       position: relative; z-index: 5;
       max-width: 1120px; margin: 0 auto;
@@ -452,7 +445,6 @@
         padding-top:4rem; padding-bottom:3rem;
       }
     }
-
     .powercare-footer .pc-footer-grid{
       display:grid; grid-template-columns:1fr;
       gap:2rem 2.5rem; align-items:flex-start;
@@ -462,11 +454,9 @@
         grid-template-columns:minmax(0,7fr) minmax(0,5fr);
       }
     }
-
     .powercare-footer .pc-footer-brand{
       display:flex; flex-direction:column; gap:1rem;
     }
-
     .powercare-footer .pc-eyebrow{
       font-size:.75rem; letter-spacing:.16em;
       text-transform:uppercase; color:#fbbf24;
@@ -481,7 +471,6 @@
       margin-top:.5rem; font-size:.95rem;
       line-height:1.7; color:rgba(241,245,249,0.9);
     }
-
     .powercare-footer .pc-contact{
       margin-top:1.25rem; font-style:normal;
     }
@@ -494,7 +483,6 @@
         grid-template-columns:repeat(2,minmax(0,1fr));
       }
     }
-
     .powercare-footer .pc-contact-chip{
       display:inline-flex; align-items:center; gap:.5rem;
       padding:.5rem .75rem; border-radius:.7rem;
@@ -507,9 +495,7 @@
       transform:translateY(-1px);
       box-shadow:0 10px 30px rgba(15,23,42,0.4);
     }
-
     .powercare-footer .pc-text-soft{ color:rgba(255,255,255,0.75); }
-
     .powercare-footer .pc-b2b{ margin-top:.75rem; }
     .powercare-footer .pc-b2b-label{
       font-weight:600; color:#fbbf24; margin-bottom:.4rem;
@@ -527,7 +513,6 @@
       display:inline-flex; align-items:center; gap:.5rem;
     }
     .powercare-footer .pc-b2b-item i{ color:#fbbf24; }
-
     .powercare-footer .pc-map-card{
       border-radius:1rem; overflow:hidden;
       background:rgba(255,255,255,0.06);
@@ -535,7 +520,6 @@
       border:1px solid rgba(255,255,255,0.16);
       box-shadow:0 18px 40px rgba(15,23,42,0.6);
     }
-
     .powercare-footer .pc-map-header,
     .powercare-footer .pc-map-footer{
       padding:1rem; border-color:rgba(255,255,255,0.2);
@@ -546,13 +530,11 @@
         padding:1.25rem;
       }
     }
-
     .powercare-footer .pc-map-header{
       display:flex; align-items:center; justify-content:space-between;
       gap:.75rem; border-bottom:1px solid rgba(255,255,255,0.2);
     }
     .powercare-footer .pc-map-title{ font-weight:600; }
-
     .powercare-footer .pc-button-primary{
       display:inline-flex; align-items:center; justify-content:center;
       gap:.5rem; padding:.5rem .9rem; font-size:.9rem;
@@ -566,7 +548,6 @@
       transform:translateY(-1px);
       box-shadow:0 10px 30px rgba(15,23,42,0.5);
     }
-
     .powercare-footer .pc-map-wrapper{
       position:relative; background:rgba(15,23,42,0.6);
       aspect-ratio:16/10;
@@ -574,7 +555,6 @@
     @media (min-width:640px){
       .powercare-footer .pc-map-wrapper{ aspect-ratio:16/9; }
     }
-
     .powercare-footer .pc-map-badge{
       position:absolute; inset:0; pointer-events:none;
     }
@@ -588,11 +568,9 @@
     .powercare-footer .pc-map-badge-inner span{
       font-size:.9rem; font-weight:600; line-height:1.3; color:#0f172a;
     }
-
     .powercare-footer #gmap{
       position:absolute; inset:0; width:100%; height:100%; border:0;
     }
-
     .powercare-footer .pc-map-footer{
       border-top:1px solid rgba(255,255,255,0.2);
     }
@@ -600,7 +578,6 @@
     @media (min-width:640px){
       .powercare-footer .pc-map-footer{ display:none; }
     }
-
     .powercare-footer .pc-bottom-bar{
       margin-top:2.5rem; padding-top:1.5rem;
       border-top:1px solid rgba(255,255,255,0.18);
@@ -613,7 +590,6 @@
         flex-direction:row; align-items:center;
       }
     }
-
     .powercare-footer .pc-bottom-links{
       display:flex; align-items:center; gap:1rem;
     }
@@ -622,780 +598,856 @@
     }
     .powercare-footer .pc-bottom-links a:hover{ opacity:1; }
     .powercare-footer .pc-bottom-separator{ opacity:.5; }
-
     .powercare-footer .tabular-nums{ font-variant-numeric:tabular-nums; }
   </style>
+  <style>
+  /* ซ่อนส่วนที่เป็น desktop-only เมื่อหน้าจอกว้างไม่เกิน 768px (มือถือ/แท็บเล็ตราบางส่วน) */
+  @media (max-width: 768px){
+    .desktop-only{
+      display:none !important;
+    }
+  }
+</style>
+
 </head>
 
 <body>
-  <!-- ===== HEADER ===== -->
-  <header id="header">
-    <div class="nav-container">
-      <a href="#home" class="logo">
-        <img src="{{ asset('storage/logohikari.png') }}" alt="Hikari Denki">
-        HikariDenki
+<!-- ===== HEADER ===== -->
+<header id="header">
+  <div class="nav-container">
+    <a href="#home" class="logo">
+      <img src="{{ asset('storage/logohikari.png') }}" alt="Hikari Denki">
+      HikariDenki
+    </a>
+
+    <!-- เมนูเดสก์ท็อป -->
+    <nav class="nav-desktop">
+      <ul>
+        <li><a href="/" class="active">หน้าแรก</a></li>
+        <li><a href="Service">บริการ</a></li>
+        <li><a href="about">เกี่ยวกับเรา</a></li>
+      </ul>
+    </nav>
+
+    <div class="right">
+      <div class="contact-item">
+        <a href="tel:0660975697">
+          066-097-5697 <span class="text-black/75">(คุณ ผักบุ้ง)</span>
+        </a>
+      </div>
+
+      <div class="contact-item">
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=Info@hikaripower.com&su=ขอใบเสนอราคา"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Info@hikaripower.com
+        </a>
+      </div>
+
+      <style>
+        .line-chip{
+          background:#06C755;
+          color:#ffffff;
+          padding:4px 12px;
+          border-radius:8px;
+          font-weight:600;
+          display:inline-block;
+          text-decoration:none;
+          font-size:0.9rem;
+        }
+      </style>
+
+      <!-- LINE -->
+      <div>
+        <a
+          href="https://line.me/R/ti/p/@hikaridenki"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="line-chip"
+          onclick="openLine(event)"
+        >
+          LINE
+        </a>
+      </div>
+
+      <a
+        class="btn-quote"
+        href="https://mail.google.com/mail/?view=cm&fs=1&to=Info@hikaripower.com&su=ขอใบเสนอราคา"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ขอใบเสนอราคา
       </a>
-
-      <!-- เมนูเดสก์ท็อป -->
-      <nav class="nav-desktop">
-        <ul>
-          <li><a href="/" class="active">หน้าแรก</a></li>
-          <li><a href="Service">บริการ</a></li>
-          <li><a href="about">เกี่ยวกับเรา</a></li>
-        </ul>
-      </nav>
-
-      <div class="right">
-        <div class="contact-item">
-          <a href="tel:0660975697">
-            066-097-5697 <span class="text-black/75">(คุณ ผักบุ้ง)</span>
-          </a>
-        </div>
-
-        <div class="contact-item">
-          <a href="mailto:Info@hikaripower.com">Info@hikaripower.com</a>
-        </div>
-
-        <a class="btn-quote" href="#contact">ขอใบเสนอราคา</a>
-      </div>
-
-      <!-- 3 ขีดแบบ SVG (มือถือ) -->
-      <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
-        <svg class="burger-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 7h16M4 12h16M4 17h16"
-                stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-        </svg>
-        <svg class="close-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M6 6L18 18M6 18L18 6"
-                stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-        </svg>
-      </button>
-    </div>
-  </header>
-
-  <!-- Backdrop + Drawer -->
-  <div id="backdrop" aria-hidden="true"></div>
-  <aside id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
-    <div class="drawer-head">
-      <div class="drawer-brand">
-        <img src="{{ asset('storage/logohikari.png') }}" alt="Hikari Denki">
-        <strong id="drawerTitle">HikariDenki</strong>
-      </div>
-      <button id="drawerClose" class="drawer-close" aria-label="Close menu">✕</button>
     </div>
 
-    <div class="drawer-body">
-      <nav class="drawer-nav">
-        <ul>
-          <li><a href="#home" class="active">หน้าแรก</a></li>
-          <li><a href="#services">บริการ</a></li>
-          <li><a href="#about">เกี่ยวกับเรา</a></li>
-        </ul>
-      </nav>
+    <!-- 3 ขีดแบบ SVG (มือถือ) -->
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+      <svg class="burger-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      </svg>
+      <svg class="close-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 6L18 18M6 18L18 6"
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      </svg>
+    </button>
+  </div>
+</header>
 
-      <div class="drawer-contacts">
-        <a class="pill" href="tel:0990802197">📞 099-080-2197</a>
-        <a class="pill" href="mailto:Info@hikaripower.com">✉️ Info@hikaripower.com</a>
-        <a class="pill" href="https://line.me/R/ti/p/@hikaridenki" target="_blank" rel="noopener">💬 LINE</a>
-      </div>
-
-      <a class="btn-quote wide" href="#contact">ขอใบเสนอราคา</a>
+<!-- Backdrop + Drawer -->
+<div id="backdrop" aria-hidden="true"></div>
+<aside id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+  <div class="drawer-head">
+    <div class="drawer-brand">
+      <img src="{{ asset('storage/logohikari.png') }}" alt="Hikari Denki">
+      <strong id="drawerTitle">HikariDenki</strong>
     </div>
-  </aside>
+    <button id="drawerClose" class="drawer-close" aria-label="Close menu">✕</button>
+  </div>
 
-  <!-- ===== HERO SECTION ===== -->
-  <section id="home" class="hero"
-    style="
-      position:relative;
-      height:70dvh;
-      min-height:70vh;
-      overflow:hidden;
-    "
-  >
-    <!-- Splash 3 วิ -->
-    <div id="heroSplash"
-         style="position:absolute; inset:0; z-index:5;
-                background:url('https://img2.pic.in.th/pic/-5e7daa1930914e9b7.jpg') center/cover no-repeat;
-                opacity:1; transition:opacity .6s ease;"
-         aria-label="opening image" role="img"></div>
+  <div class="drawer-body">
+    <nav class="drawer-nav">
+      <ul>
+        <li><a href="/" class="active">หน้าแรก</a></li>
+        <li><a href="Service">บริการ</a></li>
+        <li><a href="about">เกี่ยวกับเรา</a></li>
+      </ul>
+    </nav>
 
-    <!-- โปสเตอร์ท้ายคลิป -->
-    <div id="endPoster"
-         style="position:absolute; inset:0; z-index:4; pointer-events:none;
-                background:url('https://img2.pic.in.th/pic/-5e7daa1930914e9b7.jpg') center/cover no-repeat;
-                opacity:0; transition:opacity .6s ease;"></div>
-
-    <!-- พื้นหลัง YouTube -->
-    <div id="ytbg"
-         style="
-          position:absolute; top:50%; left:50%;
-          width:max(100vw, 142.23vh);
-          height:max(56.25vw, 80vh);
-          transform:translate(-50%,-50%);
-          z-index:-2; pointer-events:none; border:0;">
+    <div class="drawer-contacts">
+      <a class="pill" href="tel:0990802197">📞 099-080-2197</a>
+      <a class="pill" href="mailto:Info@hikaripower.com">✉️ Info@hikaripower.com</a>
+      <a class="pill" href="https://line.me/R/ti/p/@hikaridenki" target="_blank" rel="noopener">💬 LINE</a>
     </div>
 
-    <!-- วิดีโอไฟล์ภายใน (fallback) -->
-    <video id="heroFallback" muted playsinline preload="auto"
-      style="
-        opacity:0; transition:opacity .6s ease;
+    <a class="btn-quote wide" href="#contact">ขอใบเสนอราคา</a>
+  </div>
+</aside>
+
+<!-- ===== HERO SECTION ===== -->
+<section id="home" class="hero desktop-only"
+  style="
+    position:relative;
+    height:70dvh;
+    min-height:70vh;
+    overflow:hidden;
+  "
+>
+  <!-- Splash 3 วิ -->
+  <div id="heroSplash"
+       style="position:absolute; inset:0; z-index:5;
+              background:url('https://img2.pic.in.th/pic/-5e7daa1930914e9b7.jpg') center/cover no-repeat;
+              opacity:1; transition:opacity .6s ease;"
+       aria-label="opening image" role="img"></div>
+
+  <!-- โปสเตอร์ท้ายคลิป -->
+  <div id="endPoster"
+       style="position:absolute; inset:0; z-index:4; pointer-events:none;
+              background:url('https://img2.pic.in.th/pic/-5e7daa1930914e9b7.jpg') center/cover no-repeat;
+              opacity:0; transition:opacity .6s ease;"></div>
+
+  <!-- พื้นหลัง YouTube -->
+  <div id="ytbg"
+       style="
         position:absolute; top:50%; left:50%;
         width:max(100vw, 142.23vh);
         height:max(56.25vw, 80vh);
         transform:translate(-50%,-50%);
-        object-fit:cover; z-index:-3;">
-      <source src="{{ asset('assets/hikari-hero.mp4') }}" type="video/mp4">
-    </video>
+        z-index:-2; pointer-events:none; border:0;">
+  </div>
 
-    <div aria-hidden="true" style="display:none"></div>
-  </section>
+  <!-- วิดีโอไฟล์ภายใน (fallback) -->
+  <video id="heroFallback" muted playsinline preload="auto"
+    style="
+      opacity:0; transition:opacity .6s ease;
+      position:absolute; top:50%; left:50%;
+      width:max(100vw, 142.23vh);
+      height:max(56.25vw, 80vh);
+      transform:translate(-50%,-50%);
+      object-fit:cover; z-index:-3;">
+    <source src="{{ asset('assets/hikari-hero.mp4') }}" type="video/mp4">
+  </video>
 
-  <!-- ===== ABOUT SECTION ===== -->
-  <section id="about" class="about-section">
-    <div class="container about-grid">
-      <!-- ฝั่งข้อความ -->
-      <div class="about-text">
-        <h2 class="about-title">ผู้เชี่ยวชาญระบบไฟฟ้า</h2>
-        <h2 class="about-title">และ ระบบป้องกันอัคคีภัยครบวงจร</h2>
-        <p class="about-lead">
-          เราคือผู้ให้บริการโซลูชันด้านระบบไฟฟ้าและระบบป้องกันอัคคีภัยที่มีความเชี่ยวชาญในระดับสากล<br>
-          มุ่งมั่นมอบบริการที่มีคุณภาพสูงสุด เพื่อความปลอดภัยและประสิทธิภาพสูงสุดของธุรกิจคุณ
+  <div aria-hidden="true" style="display:none"></div>
+</section>
+
+
+<!-- ===== ABOUT SECTION ===== -->
+<section id="about" class="about-section">
+  <div class="container about-grid">
+    <!-- ฝั่งข้อความ -->
+    <div class="about-text">
+      <h2 class="about-title">ผู้เชี่ยวชาญระบบไฟฟ้า</h2>
+      <h2 class="about-title">และ ระบบป้องกันอัคคีภัยครบวงจร</h2>
+      <p class="about-lead">
+        เราคือผู้ให้บริการโซลูชันด้านระบบไฟฟ้าและระบบป้องกันอัคคีภัยที่มีความเชี่ยวชาญในระดับสากล<br>
+        มุ่งมั่นมอบบริการที่มีคุณภาพสูงสุด เพื่อความปลอดภัยและประสิทธิภาพสูงสุดของธุรกิจคุณ
+      </p>
+      <div class="about-body">
+        <p>
+          ด้วยทีมงานมืออาชีพที่มีประสบการณ์มากกว่า <strong>10 ปี</strong> ให้บริการครบวงจรตั้งแต่การให้คำปรึกษา
+          ออกแบบ ติดตั้ง จนถึงการบำรุงรักษาระบบ เพื่อให้มั่นใจว่าระบบของคุณจะทำงานได้อย่างมีประสิทธิภาพและปลอดภัยสูงสุด
         </p>
-        <div class="about-body">
-          <p>
-            ด้วยทีมงานมืออาชีพที่มีประสบการณ์มากกว่า <strong>10 ปี</strong> ให้บริการครบวงจรตั้งแต่การให้คำปรึกษา
-            ออกแบบ ติดตั้ง จนถึงการบำรุงรักษาระบบ เพื่อให้มั่นใจว่าระบบของคุณจะทำงานได้อย่างมีประสิทธิภาพและปลอดภัยสูงสุด
-          </p>
-          <p>
-            เรานำเข้าและจัดจำหน่ายสินค้าจากแบรนด์ชั้นนำระดับโลก พร้อมให้การรับประกันและบริการหลังการขายที่ครบวงจร
-            เพราะความพึงพอใจและความปลอดภัยของคุณคือความสำเร็จของเรา
-          </p>
-        </div>
-
-        <ul class="about-list">
-          <li>
-            <span class="icon-dot"></span>
-            ออกแบบและติดตั้งระบบไฟฟ้าโรงงาน อาคารสำนักงาน และคลังสินค้า
-          </li>
-          <li>
-            <span class="icon-dot"></span>
-            ระบบป้องกันอัคคีภัยและความปลอดภัยตามมาตรฐานสากล
-          </li>
-          <li>
-            <span class="icon-dot"></span>
-            ทีมวิศวกรพร้อมให้คำปรึกษาและดูหน้างานจริงทั่วประเทศ
-          </li>
-        </ul>
-
-        <div class="about-meta">
-          <div class="about-stat">
-            <span class="about-stat-number">10+</span>
-            <span class="about-stat-label">ปีแห่งประสบการณ์<br>ด้านระบบไฟฟ้า</span>
-          </div>
-          <div class="about-stat">
-            <span class="about-stat-number">300+</span>
-            <span class="about-stat-label">โครงการที่ลูกค้า<br>ไว้วางใจเรา</span>
-          </div>
-        </div>
+        <p>
+          เรานำเข้าและจัดจำหน่ายสินค้าจากแบรนด์ชั้นนำระดับโลก พร้อมให้การรับประกันและบริการหลังการขายที่ครบวงจร
+          เพราะความพึงพอใจและความปลอดภัยของคุณคือความสำเร็จของเรา
+        </p>
       </div>
 
-      <!-- ฝั่งรูปภาพ -->
-      <div class="about-media">
-        <div class="about-media-card">
-          <img src="{{ asset('storage/HikariDenkiUpdate.png') }}" alt="Hikari Denki" class="about-image">
+      <ul class="about-list">
+        <li>
+          <span class="icon-dot"></span>
+          ออกแบบและติดตั้งระบบไฟฟ้าโรงงาน อาคารสำนักงาน และคลังสินค้า
+        </li>
+        <li>
+          <span class="icon-dot"></span>
+          ระบบป้องกันอัคคีภัยและความปลอดภัยตามมาตรฐานสากล
+        </li>
+        <li>
+          <span class="icon-dot"></span>
+          ทีมวิศวกรพร้อมให้คำปรึกษาและดูหน้างานจริงทั่วประเทศ
+        </li>
+      </ul>
+
+      <div class="about-meta">
+        <div class="about-stat">
+          <span class="about-stat-number">10+</span>
+          <span class="about-stat-label">ปีแห่งประสบการณ์<br>ด้านระบบไฟฟ้า</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-number">300+</span>
+          <span class="about-stat-label">โครงการที่ลูกค้า<br>ไว้วางใจเรา</span>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ===== SCRIPTS: header + hero + email helper ===== -->
-  <script>
-    // sticky effect
-    const headerEl = document.getElementById('header');
-    addEventListener('scroll', () => headerEl.classList.toggle('scrolled', scrollY > 20));
+    <!-- ฝั่งรูปภาพ -->
+    <div class="about-media">
+      <div class="about-media-card">
+        <img src="{{ asset('storage/HikariDenkiUpdate.png') }}" alt="Hikari Denki" class="about-image">
+      </div>
+    </div>
+  </div>
+</section>
 
-    // Drawer controls
-    const burger = document.getElementById('burger');
-    const drawer = document.getElementById('drawer');
-    const backdrop = document.getElementById('backdrop');
-    const drawerClose = document.getElementById('drawerClose');
+<!-- ===== SCRIPTS: header + hero + email + LINE ===== -->
+<script>
+  // sticky effect
+  const headerEl = document.getElementById('header');
+  addEventListener('scroll', () => headerEl.classList.toggle('scrolled', scrollY > 20));
 
-    const openDrawer = () => {
-      burger.setAttribute('aria-expanded','true');
-      drawer.classList.add('open');
-      backdrop.classList.add('show');
-      document.body.classList.add('no-scroll');
-    };
-    const closeDrawer = () => {
-      burger.setAttribute('aria-expanded','false');
-      drawer.classList.remove('open');
-      backdrop.classList.remove('show');
-      document.body.classList.remove('no-scroll');
-    };
+  // Drawer controls
+  const burger = document.getElementById('burger');
+  const drawer = document.getElementById('drawer');
+  const backdrop = document.getElementById('backdrop');
+  const drawerClose = document.getElementById('drawerClose');
 
-    burger.addEventListener('click', openDrawer);
-    drawerClose.addEventListener('click', closeDrawer);
-    backdrop.addEventListener('click', closeDrawer);
-    addEventListener('keydown', e => { if(e.key==='Escape') closeDrawer(); });
-    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+  const openDrawer = () => {
+    burger.setAttribute('aria-expanded','true');
+    drawer.classList.add('open');
+    backdrop.classList.add('show');
+    document.body.classList.add('no-scroll');
+  };
+  const closeDrawer = () => {
+    burger.setAttribute('aria-expanded','false');
+    drawer.classList.remove('open');
+    backdrop.classList.remove('show');
+    document.body.classList.remove('no-scroll');
+  };
 
-    // helper openEmail
-    function openEmail(e, address, opts) {
-      e.preventDefault();
-      opts = opts || {};
-      const params = new URLSearchParams();
-      if (opts.subject) params.append('subject', opts.subject);
-      if (opts.body) params.append('body', opts.body);
-      const qs = params.toString();
-      window.location.href = 'mailto:' + address + (qs ? '?' + qs : '');
-      return false;
+  burger.addEventListener('click', openDrawer);
+  drawerClose.addEventListener('click', closeDrawer);
+  backdrop.addEventListener('click', closeDrawer);
+  addEventListener('keydown', e => { if(e.key==='Escape') closeDrawer(); });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
+  // helper openEmail
+  function openEmail(e, address, opts) {
+    e.preventDefault();
+    opts = opts || {};
+    const params = new URLSearchParams();
+    if (opts.subject) params.append('subject', opts.subject);
+    if (opts.body) params.append('body', opts.body);
+    const qs = params.toString();
+    window.location.href = 'mailto:' + address + (qs ? '?' + qs : '');
+    return false;
+  }
+
+  // LINE deep link
+  function openLine(event){
+    event.preventDefault();
+    var lineAppUrl = "line://ti/p/@hikaridenki";
+    var lineWebUrl = "https://line.me/R/ti/p/@hikaridenki";
+    var start = Date.now();
+    window.location.href = lineAppUrl;
+    setTimeout(function () {
+      if (Date.now() - start < 1500) {
+        window.open(lineWebUrl, "_blank");
+      }
+    }, 1000);
+  }
+
+  // ===== Splash + Fallback + YouTube =====
+  (function(){
+    const VIDEO_ID = 'TlPy5AS7Keo';
+    const SPLASH_MS = 3000;
+    const splash   = document.getElementById('heroSplash');
+    const fallback = document.getElementById('heroFallback');
+    const endPoster = document.getElementById('endPoster');
+    let ytLoadedInTime = false, ytPlayer = null;
+
+    setTimeout(() => {
+      splash.style.opacity = '0';
+      setTimeout(() => { splash.style.display = 'none'; }, 650);
+    }, SPLASH_MS);
+
+    function showEndPoster(){
+      try { ytPlayer?.stopVideo?.(); } catch(e){}
+      try { fallback.pause(); } catch(e){}
+      endPoster.style.opacity = '1';
     }
 
-    // ===== Splash + Fallback + YouTube =====
-    (function(){
-      const VIDEO_ID = 'TlPy5AS7Keo';
-      const SPLASH_MS = 3000;
-      const splash   = document.getElementById('heroSplash');
-      const fallback = document.getElementById('heroFallback');
-      const endPoster = document.getElementById('endPoster');
-      let ytLoadedInTime = false, ytPlayer = null;
-
-      setTimeout(() => {
-        splash.style.opacity = '0';
-        setTimeout(() => { splash.style.display = 'none'; }, 650);
-      }, SPLASH_MS);
-
-      function showEndPoster(){
-        try { ytPlayer?.stopVideo?.(); } catch(e){}
-        try { fallback.pause(); } catch(e){}
-        endPoster.style.opacity = '1';
-      }
-
-      setTimeout(() => {
-        if (!ytLoadedInTime) {
-          try {
-            fallback.currentTime = 0;
-            fallback.play().catch(()=>{});
-            fallback.style.zIndex = -1;
-            fallback.style.opacity = 1;
-            fallback.addEventListener('ended', showEndPoster, { once:true });
-          } catch(e){}
-        }
-      }, 4000);
-
-      const tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.head.appendChild(tag);
-
-      window.onYouTubeIframeAPIReady = function(){
-        ytPlayer = new YT.Player('ytbg', {
-          videoId: VIDEO_ID,
-          playerVars: {
-            autoplay: 1, mute: 1, controls: 0, playsinline: 1,
-            modestbranding: 1, rel: 0, origin: window.location.origin
-          },
-          events: {
-            onReady: (e) => {
-              ytLoadedInTime = true;
-              try { e.target.mute(); e.target.playVideo(); } catch(_) {}
-            },
-            onStateChange: (e) => {
-              if (e.data === YT.PlayerState.ENDED) { showEndPoster(); }
-            }
-          }
-        });
-      };
-    })();
-  </script>
-
-  <!-- ===== SERVICES SECTION ===== -->
-  <section id="services">
-    <div class="container">
-      <div class="section-header fade-in">
-        <br>
-        <h2>บริการของเรา</h2>
-      </div>
-
-      <div class="services-grid">
-
-        <!-- การ์ด 1: เปลี่ยนแบตเตอรี่ UPS -->
-        <div class="service-card"
-             data-images='[
-               "https://img5.pic.in.th/file/secure-sv1/image1da248ff721ab964.png",
-               "https://img2.pic.in.th/pic/image59f17a538588772e.png",
-               "https://img5.pic.in.th/file/secure-sv1/image5fd73bc74c40939e.png"
-             ]'>
-          <div class="service-thumb">
-            <img
-              class="service-img base"
-              src="https://img5.pic.in.th/file/secure-sv1/image1da248ff721ab964.png"
-              alt="บริการเปลี่ยนแบตเตอรี่ UPS"
-            >
-            <img
-              class="service-img overlay"
-              src="https://img5.pic.in.th/file/secure-sv1/image1da248ff721ab964.png"
-              alt=""
-            >
-          </div>
-          <br>
-          <h3>บริการเปลี่ยนแบตเตอรี่ UPS</h3>
-          <p>
-            ตรวจเช็คระบบเครื่องสำรองไฟฟ้า บริการเปลี่ยนแบตเตอรี่ UPS ทุกยี่ห้อ
-            ด้วยทีมช่างมืออาชีพ พร้อมรับประกันคุณภาพและบริการหลังการขาย
-          </p>
-        </div>
-
-        <!-- การ์ด 2: Report Test -->
-        <div class="service-card"
-             data-images='[
-               "https://img5.pic.in.th/file/secure-sv1/image0d278ff5aaa81553.png",
-               "https://img5.pic.in.th/file/secure-sv1/image985cb2601cdfe027.png",
-               "https://img5.pic.in.th/file/secure-sv1/imagee9911b84a1cd86b5.png"
-             ]'>
-          <div class="service-thumb">
-            <img
-              class="service-img base"
-              src="https://img5.pic.in.th/file/secure-sv1/image0d278ff5aaa81553.png"
-              alt="ออกเอกสารรับรอง Report Test"
-            >
-            <img
-              class="service-img overlay"
-              src="https://img5.pic.in.th/file/secure-sv1/image0d278ff5aaa81553.png"
-              alt=""
-            >
-          </div>
-          <br>
-          <h3>ออกเอกสารรับรอง Report Test</h3>
-          <p>
-            ทดสอบและรายงานผลการทำงานของระบบอย่างละเอียด
-            ออกเอกสารรับรองมาตรฐาน พร้อมรายงานการทดสอบระบบไฟฟ้าและระบบป้องกันอัคคีภัย
-          </p>
-        </div>
-
-        <!-- การ์ด 3: Fire Alarm Test -->
-        <div class="service-card"
-             data-images='[
-               "https://img2.pic.in.th/pic/image8a3aa2b31d794ba9.png",
-               "https://img5.pic.in.th/file/secure-sv1/Screenshot-2025-11-05-091610.png",
-               "https://img5.pic.in.th/file/secure-sv1/Screenshot-2025-11-05-091731.png"
-             ]'>
-          <div class="service-thumb">
-            <img
-              class="service-img base"
-              src="https://img2.pic.in.th/pic/image8a3aa2b31d794ba9.png"
-              alt="ตรวจสอบระบบ Fire Alarm"
-            >
-            <img
-              class="service-img overlay"
-              src="https://img2.pic.in.th/pic/image8a3aa2b31d794ba9.png"
-              alt=""
-            >
-          </div>
-          <br>
-          <h3>ตรวจสอบระบบ Fire Alarm</h3>
-          <p>
-            ตรวจสอบและบำรุงรักษาระบบแจ้งเหตุเพลิงไหม้ในอาคาร
-            โดยผู้เชี่ยวชาญ ให้ทำงานได้อย่างมีประสิทธิภาพตามมาตรฐานสากล
-          </p>
-        </div>
-
-        <!-- การ์ด 4: Fire Alarm Products -->
-        <div class="service-card"
-             data-images='[
-               "https://img5.pic.in.th/file/secure-sv1/imagee51a99716a72db96.png",
-               "https://img5.pic.in.th/file/secure-sv1/image340f1428ff177675.png",
-               "https://img5.pic.in.th/file/secure-sv1/image73cc15fd2ba810ba.png"
-             ]'>
-          <div class="service-thumb">
-            <img
-              class="service-img base"
-              src="https://img5.pic.in.th/file/secure-sv1/imagee51a99716a72db96.png"
-              alt="จำหน่ายอุปกรณ์ Fire Alarm"
-            >
-            <img
-              class="service-img overlay"
-              src="https://img5.pic.in.th/file/secure-sv1/imagee51a99716a72db96.png"
-              alt=""
-            >
-          </div>
-          <br>
-          <h3>จำหน่ายอุปกรณ์ Fire Alarm</h3>
-          <p>
-            จำหน่ายอุปกรณ์ระบบแจ้งเหตุเพลิงไหม้และระบบไฟฉุกเฉิน ครบวงจร
-            ตู้ควบคุม เครื่องตรวจจับควัน สัญญาณเตือน จากแบรนด์ชั้นนำระดับสากล
-          </p>
-        </div>
-
-        <!-- การ์ด 5: Electrical Products -->
-        <div class="service-card"
-             data-images='[
-               "https://img2.pic.in.th/pic/image03e1d2bccde4be21.png",
-               "https://drive.google.com/thumbnail?id=1cO3mFMXPrT3atxCpNY4dWYwj2ywXfSTP&sz=w1000",
-               "https://drive.google.com/thumbnail?id=1a7eErFfx6HAyCjx9d_ndR-Heq8O6RTtt&sz=w1000"
-             ]'>
-          <div class="service-thumb">
-            <img
-              class="service-img base"
-              src="https://img2.pic.in.th/pic/image03e1d2bccde4be21.png"
-              alt="จำหน่ายอุปกรณ์ไฟฟ้า"
-            >
-            <img
-              class="service-img overlay"
-              src="https://img2.pic.in.th/pic/image03e1d2bccde4be21.png"
-              alt=""
-            >
-          </div>
-          <br>
-          <h3>จำหน่ายอุปกรณ์ไฟฟ้า</h3>
-          <p>
-            จำหน่าย แบตเตอรี่, UPS, Emergency Light, Exit Sign รูปแบบต่างๆ ตามมาตรฐานสากล
-            สินค้าคุณภาพ พร้อมให้คำปรึกษาเลือกสินค้าที่เหมาะสม
-          </p>
-        </div>
-
-        <!-- การ์ด 6: Consult & After Sale -->
-        <div class="service-card" data-images='[]'>
-          <div class="service-thumb">
-            <img
-              class="service-img base"
-              src="https://img2.pic.in.th/pic/image6b4e6528b11be905.png"
-              alt="ให้คำปรึกษาและบริการหลังการขาย"
-            >
-            <img
-              class="service-img overlay"
-              src="https://img2.pic.in.th/pic/image6b4e6528b11be905.png"
-              alt=""
-            >
-          </div>
-          <br>
-          <h3>ให้คำปรึกษาและบริการ</h3>
-          <p>
-            ทีมงานมืออาชีพพร้อมให้คำปรึกษาฟรี แนะนำระบบที่เหมาะสมกับความต้องการ
-            พร้อมบริการหลังการขายและรับประกันอย่างต่อเนื่อง
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // รูปบริการเลื่อนเร็วเมื่อ hover
-    document.addEventListener('DOMContentLoaded', function () {
-      const cards = document.querySelectorAll('.service-card');
-
-      cards.forEach(card => {
-        const thumb = card.querySelector('.service-thumb');
-        const baseImg = thumb ? thumb.querySelector('img.base') : null;
-        const overlayImg = thumb ? thumb.querySelector('img.overlay') : null;
-        const imagesStr = card.getAttribute('data-images');
-
-        if (!baseImg || !overlayImg || !imagesStr) return;
-
-        let images;
+    setTimeout(() => {
+      if (!ytLoadedInTime) {
         try {
-          images = JSON.parse(imagesStr);
-        } catch (e) {
-          console.error('JSON data-images ไม่ถูกต้องในการ์ดนี้', e, card);
-          return;
+          fallback.currentTime = 0;
+          fallback.play().catch(()=>{});
+          fallback.style.zIndex = -1;
+          fallback.style.opacity = 1;
+          fallback.addEventListener('ended', showEndPoster, { once:true });
+        } catch(e){}
+      }
+    }, 4000);
+
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+
+    window.onYouTubeIframeAPIReady = function(){
+      ytPlayer = new YT.Player('ytbg', {
+        videoId: VIDEO_ID,
+        playerVars: {
+          autoplay: 1, mute: 1, controls: 0, playsinline: 1,
+          modestbranding: 1, rel: 0, origin: window.location.origin
+        },
+        events: {
+          onReady: (e) => {
+            ytLoadedInTime = true;
+            try { e.target.mute(); e.target.playVideo(); } catch(_) {}
+          },
+          onStateChange: (e) => {
+            if (e.data === YT.PlayerState.ENDED) { showEndPoster(); }
+          }
         }
-
-        if (!images || images.length <= 1) return;
-
-        // พรีโหลดรูปทุกใบของการ์ดนี้
-        images.forEach(url => {
-          const preImg = new Image();
-          preImg.src = url;
-        });
-
-        baseImg.src = images[0];
-        overlayImg.src = images[0];
-
-        let index = 0;
-        let timer = null;
-        let isAnimating = false;
-
-        function showNextImage() {
-          if (isAnimating) return;
-          isAnimating = true;
-
-          const nextIndex = (index + 1) % images.length;
-          const nextUrl = images[nextIndex];
-
-          overlayImg.src = nextUrl;
-          overlayImg.style.opacity = '1';
-
-          setTimeout(() => {
-            baseImg.src = nextUrl;
-            overlayImg.style.opacity = '0';
-            index = nextIndex;
-            isAnimating = false;
-          }, 450);
-        }
-
-        function startSlide() {
-          if (timer) return;
-          timer = setInterval(showNextImage, 800);
-        }
-
-        function stopSlide() {
-          if (!timer) return;
-          clearInterval(timer);
-          timer = null;
-          isAnimating = false;
-          overlayImg.style.opacity = '0';
-        }
-
-        card.addEventListener('mouseenter', startSlide);
-        card.addEventListener('mouseleave', stopSlide);
       });
-    });
-  </script>
+    };
+  })();
+</script>
 
-  <!-- ===== PARTNERS SLIDER (2 แถว, auto, ทิศสวนกัน) ===== -->
-  <section id="partners" class="partners-section">
-    <div class="container partner-inner">
-      <div class="section-header">
-        <h2>หลากหลายสินค้าจากแบรนด์ชั้นนำ</h2>
+<!-- ===== SERVICES SECTION ===== -->
+<section id="services">
+  <div class="container">
+    <div class="section-header fade-in">
+      <br>
+      <h2>บริการของเรา</h2>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- การ์ด 1: เปลี่ยนแบตเตอรี่ UPS -->
+      <div class="service-card"
+           data-images='[
+             "https://img5.pic.in.th/file/secure-sv1/image1da248ff721ab964.png",
+             "https://img2.pic.in.th/pic/image59f17a538588772e.png",
+             "https://img5.pic.in.th/file/secure-sv1/image5fd73bc74c40939e.png"
+           ]'>
+        <div class="service-thumb">
+          <img
+            class="service-img base"
+            src="https://img5.pic.in.th/file/secure-sv1/image1da248ff721ab964.png"
+            alt="บริการเปลี่ยนแบตเตอรี่ UPS"
+          >
+          <img
+            class="service-img overlay"
+            src="https://img5.pic.in.th/file/secure-sv1/image1da248ff721ab964.png"
+            alt=""
+          >
+        </div>
+        <br>
+        <h3>บริการเปลี่ยนแบตเตอรี่ UPS</h3>
         <p>
-          เราทำงานร่วมกับผู้ผลิตระดับสากล เพื่อส่งมอบโซลูชันที่เชื่อถือได้สำหรับองค์กรของคุณ
+          ตรวจเช็คระบบเครื่องสำรองไฟฟ้า บริการเปลี่ยนแบตเตอรี่ UPS ทุกยี่ห้อ
+          ด้วยทีมช่างมืออาชีพ พร้อมรับประกันคุณภาพและบริการหลังการขาย
         </p>
       </div>
 
-      <div class="partner-slider">
-        <!-- แถวบน เลื่อนไปทางขวา -->
-        <div class="partner-row" data-direction="right">
-          <div class="partner-track">
-            <div class="partner-item"><img src="{{ asset('storage/partner/apc.png') }}" alt="APC"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/cyberpower-seeklogo.png') }}" alt="CyberPower"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/delta-electronics-seeklogo.png') }}" alt="Delta"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/eaton-seeklogo.png') }}" alt="Eaton"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/schneider.png') }}" alt="Schneider"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/vertiv-seeklogo.png') }}" alt="Vertiv"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/long.png') }}" alt="Long"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/accu.png') }}" alt="Accu"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/csb-battery-seeklogo.png') }}" alt="CSB"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/Leoch Battery.png') }}" alt="Leoch"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/panasonic-seeklogo.png') }}" alt="Panasonic"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/yuasa-seeklogo.png') }}" alt="Yuasa"></div>
-          </div>
+      <!-- การ์ด 2: Report Test -->
+      <div class="service-card"
+           data-images='[
+             "https://img5.pic.in.th/file/secure-sv1/image0d278ff5aaa81553.png",
+             "https://img5.pic.in.th/file/secure-sv1/image985cb2601cdfe027.png",
+             "https://img5.pic.in.th/file/secure-sv1/imagee9911b84a1cd86b5.png"
+           ]'>
+        <div class="service-thumb">
+          <img
+            class="service-img base"
+            src="https://img5.pic.in.th/file/secure-sv1/image0d278ff5aaa81553.png"
+            alt="ออกเอกสารรับรอง Report Test"
+          >
+          <img
+            class="service-img overlay"
+            src="https://img5.pic.in.th/file/secure-sv1/image0d278ff5aaa81553.png"
+            alt=""
+          >
         </div>
-
-        <!-- แถวล่าง เลื่อนไปทางซ้าย -->
-        <div class="partner-row" data-direction="left">
-          <div class="partner-track">
-            <div class="partner-item"><img src="{{ asset('storage/partner/sunny.png') }}" alt="Sunny"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/iwachi.png') }}" alt="Iwachi"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/dyno.png') }}" alt="Dyno"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/delight.png') }}" alt="Delight"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/bec.png') }}" alt="BEC"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/safeguard.png') }}" alt="Safeguard"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/MAXBRIGHT.png') }}" alt="Maxbright"></div>
-            <div class="partner-item"><img src="{{ asset('storage/partner/notifier-seeklogo.png') }}" alt="Notifier"></div>
-          </div>
-        </div>
+        <br>
+        <h3>ออกเอกสารรับรอง Report Test</h3>
+        <p>
+          ทดสอบและรายงานผลการทำงานของระบบอย่างละเอียด
+          ออกเอกสารรับรองมาตรฐาน พร้อมรายงานการทดสอบระบบไฟฟ้าและระบบป้องกันอัคคีภัย
+        </p>
       </div>
+
+      <!-- การ์ด 3: Fire Alarm Test -->
+      <div class="service-card"
+           data-images='[
+             "https://img2.pic.in.th/pic/image8a3aa2b31d794ba9.png",
+             "https://img5.pic.in.th/file/secure-sv1/Screenshot-2025-11-05-091610.png",
+             "https://img5.pic.in.th/file/secure-sv1/Screenshot-2025-11-05-091731.png"
+           ]'>
+        <div class="service-thumb">
+          <img
+            class="service-img base"
+            src="https://img2.pic.in.th/pic/image8a3aa2b31d794ba9.png"
+            alt="ตรวจสอบระบบ Fire Alarm"
+          >
+          <img
+            class="service-img overlay"
+            src="https://img2.pic.in.th/pic/image8a3aa2b31d794ba9.png"
+            alt=""
+          >
+        </div>
+        <br>
+        <h3>ตรวจสอบระบบ Fire Alarm</h3>
+        <p>
+          ตรวจสอบและบำรุงรักษาระบบแจ้งเหตุเพลิงไหม้ในอาคาร
+          โดยผู้เชี่ยวชาญ ให้ทำงานได้อย่างมีประสิทธิภาพตามมาตรฐานสากล
+        </p>
+      </div>
+
+      <!-- การ์ด 4: Fire Alarm Products -->
+      <div class="service-card"
+           data-images='[
+             "https://img5.pic.in.th/file/secure-sv1/imagee51a99716a72db96.png",
+             "https://img5.pic.in.th/file/secure-sv1/image340f1428ff177675.png",
+             "https://img5.pic.in.th/file/secure-sv1/image73cc15fd2ba810ba.png"
+           ]'>
+        <div class="service-thumb">
+          <img
+            class="service-img base"
+            src="https://img5.pic.in.th/file/secure-sv1/imagee51a99716a72db96.png"
+            alt="จำหน่ายอุปกรณ์ Fire Alarm"
+          >
+          <img
+            class="service-img overlay"
+            src="https://img5.pic.in.th/file/secure-sv1/imagee51a99716a72db96.png"
+            alt=""
+          >
+        </div>
+        <br>
+        <h3>จำหน่ายอุปกรณ์ Fire Alarm</h3>
+        <p>
+          จำหน่ายอุปกรณ์ระบบแจ้งเหตุเพลิงไหม้และระบบไฟฉุกเฉิน ครบวงจร
+          ตู้ควบคุม เครื่องตรวจจับควัน สัญญาณเตือน จากแบรนด์ชั้นนำระดับสากล
+        </p>
+      </div>
+
+      <!-- การ์ด 5: Electrical Products -->
+      <div class="service-card"
+           data-images='[
+             "https://img2.pic.in.th/pic/image03e1d2bccde4be21.png",
+             "https://drive.google.com/thumbnail?id=1cO3mFMXPrT3atxCpNY4dWYwj2ywXfSTP&sz=w1000",
+             "https://drive.google.com/thumbnail?id=1a7eErFfx6HAyCjx9d_ndR-Heq8O6RTtt&sz=w1000"
+           ]'>
+        <div class="service-thumb">
+          <img
+            class="service-img base"
+            src="https://img2.pic.in.th/pic/image03e1d2bccde4be21.png"
+            alt="จำหน่ายอุปกรณ์ไฟฟ้า"
+          >
+          <img
+            class="service-img overlay"
+            src="https://img2.pic.in.th/pic/image03e1d2bccde4be21.png"
+            alt=""
+          >
+        </div>
+        <br>
+        <h3>จำหน่ายอุปกรณ์ไฟฟ้า</h3>
+        <p>
+          จำหน่าย แบตเตอรี่, UPS, Emergency Light, Exit Sign รูปแบบต่างๆ ตามมาตรฐานสากล
+          สินค้าคุณภาพ พร้อมให้คำปรึกษาเลือกสินค้าที่เหมาะสม
+        </p>
+      </div>
+
+      <!-- การ์ด 6: Consult & After Sale -->
+      <div class="service-card" data-images='[]'>
+        <div class="service-thumb">
+          <img
+            class="service-img base"
+            src="https://img2.pic.in.th/pic/image6b4e6528b11be905.png"
+            alt="ให้คำปรึกษาและบริการหลังการขาย"
+          >
+          <img
+            class="service-img overlay"
+            src="https://img2.pic.in.th/pic/image6b4e6528b11be905.png"
+            alt=""
+          >
+        </div>
+        <br>
+        <h3>ให้คำปรึกษาและบริการ</h3>
+        <p>
+          ทีมงานมืออาชีพพร้อมให้คำปรึกษาฟรี แนะนำระบบที่เหมาะสมกับความต้องการ
+          พร้อมบริการหลังการขายและรับประกันอย่างต่อเนื่อง
+        </p>
+      </div>
+      <br>
     </div>
-  </section>
+  </div>
+</section>
 
-  <script>
-    // auto scroll logo bar 2 แถว
-    document.addEventListener('DOMContentLoaded', function () {
-      const rows = document.querySelectorAll('.partner-row');
-      const step = 1.5;      // px ต่อครั้ง
-      const interval = 20;   // ms
+<script>
+  // รูปบริการเลื่อนอัตโนมัติ: desktop = hover, mobile = auto + tap toggle
+  document.addEventListener('DOMContentLoaded', function () {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const cards = document.querySelectorAll('.service-card');
 
-      rows.forEach(row => {
-        const track = row.querySelector('.partner-track');
-        if (!track) return;
+    cards.forEach(card => {
+      const thumb = card.querySelector('.service-thumb');
+      const baseImg = thumb ? thumb.querySelector('img.base') : null;
+      const overlayImg = thumb ? thumb.querySelector('img.overlay') : null;
+      const imagesStr = card.getAttribute('data-images');
 
-        const dir = row.dataset.direction === 'left' ? -1 : 1;
-        let timer = null;
+      if (!baseImg || !overlayImg || !imagesStr) return;
 
-        function tick() {
-          const maxScroll = track.scrollWidth - track.clientWidth;
-          if (maxScroll <= 0) return;
+      let images;
+      try {
+        images = JSON.parse(imagesStr);
+      } catch (e) {
+        console.error('JSON data-images ไม่ถูกต้องในการ์ดนี้', e, card);
+        return;
+      }
 
-          if (dir > 0) { // ขวา
-            if (track.scrollLeft >= maxScroll - 1) {
-              track.scrollLeft = 0;
-            } else {
-              track.scrollLeft += step;
-            }
-          } else {       // ซ้าย
-            if (track.scrollLeft <= 0) {
-              track.scrollLeft = maxScroll;
-            } else {
-              track.scrollLeft -= step;
-            }
-          }
-        }
+      if (!images || images.length <= 1) return;
 
-        function start() {
-          if (!timer) timer = setInterval(tick, interval);
-        }
-        function stop() {
-          if (timer) {
-            clearInterval(timer);
-            timer = null;
-          }
-        }
-
-        start();
-
-        // หยุดตอนโฮเวอร์ / แตะ
-        track.addEventListener('mouseenter', stop);
-        track.addEventListener('mouseleave', start);
-        track.addEventListener('touchstart', stop, { passive: true });
-        track.addEventListener('touchend', start);
+      // พรีโหลดรูป
+      images.forEach(url => {
+        const preImg = new Image();
+        preImg.src = url;
       });
+
+      baseImg.src = images[0];
+      overlayImg.src = images[0];
+
+      let index = 0;
+      let timer = null;
+      let isAnimating = false;
+
+      function showNextImage() {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const nextIndex = (index + 1) % images.length;
+        const nextUrl = images[nextIndex];
+
+        overlayImg.src = nextUrl;
+        overlayImg.style.opacity = '1';
+
+        setTimeout(() => {
+          baseImg.src = nextUrl;
+          overlayImg.style.opacity = '0';
+          index = nextIndex;
+          isAnimating = false;
+        }, 450);
+      }
+
+      function startSlide() {
+        if (timer) return;
+        timer = setInterval(showNextImage, 800);
+      }
+
+      function stopSlide() {
+        if (!timer) return;
+        clearInterval(timer);
+        timer = null;
+        isAnimating = false;
+        overlayImg.style.opacity = '0';
+      }
+
+      if (isTouch) {
+        // มือถือ: เล่นอัตโนมัติ และแตะเพื่อหยุด/เล่นต่อ
+        startSlide();
+        card.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (timer) {
+            stopSlide();
+          } else {
+            startSlide();
+          }
+        });
+      } else {
+        // Desktop: hover เพื่อเริ่ม / ออกจากการ์ดเพื่อหยุด
+        card.addEventListener('mouseenter', startSlide);
+        card.addEventListener('mouseleave', stopSlide);
+      }
     });
-  </script>
+  });
+</script>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="powercare-footer" role="contentinfo" aria-label="PowerCare footer">
-    <div class="pc-footer-bg"></div>
-    <div
-      class="pc-footer-halos"
-      style="
-        background:
-          radial-gradient(900px 280px at 15% -10%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0)),
-          radial-gradient(700px 240px at 85% 110%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
-      "
-    ></div>
+<!-- ===== PARTNERS SLIDER ===== -->
+<section id="partners" class="partners-section">
+  <div class="container partner-inner">
+    <div class="section-header">
+      <h2 style="color:#0047ab;">หลากหลายสินค้าจากแบรนด์ชั้นนำ</h2>
+      <p>
+        เราทำงานร่วมกับผู้ผลิตระดับสากล เพื่อส่งมอบโซลูชันที่เชื่อถือได้สำหรับองค์กรของคุณ
+      </p>
+    </div>
 
-    <div class="pc-footer-inner">
-      <div class="pc-footer-grid">
-        <!-- Brand & tagline -->
-        <section class="pc-footer-brand">
-          <div>
-            <p class="pc-eyebrow">HikariDenki</p>
-            <h2 class="pc-title">Service by HikariDenki</h2>
-            <p class="pc-tagline">
-              โซลูชันระบบไฟสำรองสำหรับองค์กร — ติดตั้ง บำรุงรักษา ตรวจรับรอง โดยทีมวิศวกรมืออาชีพ
-            </p>
-          </div>
-
-          <!-- Contact -->
-          <address class="pc-contact">
-            <div class="pc-contact-grid">
-              <a
-                href="tel:+66660975697"
-                class="pc-contact-chip"
-                aria-label="โทร 066-097-5697"
-              >
-                <i class="bi bi-telephone"></i>
-                <span>
-                  066-097-5697
-                  <span class="pc-text-soft">(คุณ ผักบุ้ง)</span>
-                </span>
-              </a>
-
-              <a href="tel:0990802197" class="pc-contact-chip">
-                <i class="bi bi-telephone"></i>
-                <span>
-                  099-080-2197
-                  <span class="pc-text-soft">(คุณ ผักบุ้ง)</span>
-                </span>
-              </a>
-
-              <a href="tel:021172995" class="pc-contact-chip">
-                <i class="bi bi-telephone-inbound"></i>
-                <span>
-                  02-117-2995
-                  <span class="pc-text-soft">(ติดต่อสำนักงาน)</span>
-                </span>
-              </a>
-
-              <a
-                href="mailto:Info@hikaripower.com"
-                class="pc-contact-chip"
-                rel="nofollow noopener"
-                onclick="return openEmail(event, 'Info@hikaripower.com', { subject: 'สอบถามสินค้าของ hikaridenki' });"
-              >
-                <i class="bi bi-envelope"></i>
-                <span>Info@hikaripower.com</span>
-              </a>
-            </div>
-
-            <div class="pc-b2b">
-              <p class="pc-b2b-label">พร้อมสำหรับงาน B2B</p>
-              <ul class="pc-b2b-list">
-                <li class="pc-b2b-item">
-                  <i class="bi bi-receipt-cutoff"></i>
-                  <span>ใบเสนอราคา / PO / ใบกำกับภาษี</span>
-                </li>
-                <li class="pc-b2b-item">
-                  <i class="bi bi-building-check"></i>
-                  <span>รองรับเครดิตเทอมองค์กร</span>
-                </li>
-                <li class="pc-b2b-item">
-                  <i class="bi bi-award"></i>
-                  <span>ทีมวิศวกรมีใบรับรอง</span>
-                </li>
-              </ul>
-            </div>
-          </address>
-        </section>
-
-        <!-- Map & CTA -->
-        <section class="pc-footer-map">
-          <div class="pc-map-card">
-            <div class="pc-map-header">
-              <h3 class="pc-map-title">บริษัท ฮิคาริ เดงกิ จำกัด</h3>
-              <a
-                href="https://www.google.com/maps/place/%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5+%E0%B8%AD%E0%B8%B5+%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B9%89%E0%B8%87/@13.717683,100.473264,1929m/data=!3m1!1e3!4m6!3m5!1s0x30e2991a367db98b:0x4c961d180eb9153f!8m2!3d13.717683!4d100.4732644!16s%2Fg%2F1xg5q33q?hl=th&entry=ttu"
-                target="_blank"
-                rel="noopener"
-                class="pc-button-primary"
-                aria-label="เปิดตำแหน่งบน Google Maps"
-              >
-                <i class="bi bi-geo-alt-fill"></i>
-                <span>เปิดใน Google Maps</span>
-              </a>
-            </div>
-
-            <div class="pc-map-wrapper">
-              <div class="pc-map-badge">
-                <div class="pc-map-badge-inner">
-                  <span>บริษัท ฮิคาริ เดงกิ จำกัด</span>
-                </div>
-              </div>
-
-              <iframe
-                id="gmap"
-                src="https://www.google.com/maps?q=13.717683,100.473264&hl=th&z=17&output=embed"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                allowfullscreen
-              ></iframe>
-            </div>
-
-            <div class="pc-map-footer">
-              <a
-                href="https://www.google.com/maps/place/%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5+%E0%B8%AD%E0%B8%B5+%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B9%89%E0%B8%87/@13.717683,100.473264,1929m/data=!3m1!1e3!4m6!3m5!1s0x30e2991a367db98b:0x4c961d180eb9153f!8m2!3d13.717683!4d100.4732644!16s%2Fg%2F1xg5q33q?hl=th&entry=ttu"
-                target="_blank"
-                rel="noopener"
-                class="pc-button-primary"
-              >
-                <i class="bi bi-map"></i>
-                <span>เปิดใน Google Maps</span>
-              </a>
-            </div>
-          </div>
-        </section>
+    <div class="partner-slider">
+      <!-- แถวบน เลื่อนไปทางขวา -->
+      <div class="partner-row" data-direction="right">
+        <div class="partner-track">
+          <div class="partner-item"><img src="{{ asset('storage/partner/apc.png') }}" alt="APC"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/cyberpower-seeklogo.png') }}" alt="CyberPower"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/delta-electronics-seeklogo.png') }}" alt="Delta"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/eaton-seeklogo.png') }}" alt="Eaton"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/schneider.png') }}" alt="Schneider"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/vertiv-seeklogo.png') }}" alt="Vertiv"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/long.png') }}" alt="Long"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/accu.png') }}" alt="Accu"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/csb-battery-seeklogo.png') }}" alt="CSB"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/Leoch Battery.png') }}" alt="Leoch"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/panasonic-seeklogo.png') }}" alt="Panasonic"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/yuasa-seeklogo.png') }}" alt="Yuasa"></div>
+        </div>
       </div>
 
-      <div class="pc-bottom-bar">
-        <p>© <span class="tabular-nums">{{ date('Y') }}</span> Service by HikariDenki. สงวนลิขสิทธิ์.</p>
-        <div class="pc-bottom-links">
-          <a href="#">นโยบายความเป็นส่วนตัว</a>
-          <span class="pc-bottom-separator">•</span>
-          <a href="#">ข้อตกลงการใช้งาน</a>
+      <!-- แถวล่าง เลื่อนไปทางซ้าย -->
+      <div class="partner-row" data-direction="left">
+        <div class="partner-track">
+          <div class="partner-item"><img src="{{ asset('storage/partner/sunny.png') }}" alt="Sunny"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/iwachi.png') }}" alt="Iwachi"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/dyno.png') }}" alt="Dyno"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/delight.png') }}" alt="Delight"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/bec.png') }}" alt="BEC"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/safeguard.png') }}" alt="Safeguard"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/MAXBRIGHT.png') }}" alt="Maxbright"></div>
+          <div class="partner-item"><img src="{{ asset('storage/partner/notifier-seeklogo.png') }}" alt="Notifier"></div>
         </div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
+
+<script>
+  // auto scroll logo bar 2 แถว
+  document.addEventListener('DOMContentLoaded', function () {
+    const rows = document.querySelectorAll('.partner-row');
+    const step = 1.5;
+    const interval = 20;
+
+    rows.forEach(row => {
+      const track = row.querySelector('.partner-track');
+      if (!track) return;
+
+      const dir = row.dataset.direction === 'left' ? -1 : 1;
+      let timer = null;
+
+      function tick() {
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        if (maxScroll <= 0) return;
+
+        if (dir > 0) { // ขวา
+          if (track.scrollLeft >= maxScroll - 1) {
+            track.scrollLeft = 0;
+          } else {
+            track.scrollLeft += step;
+          }
+        } else {       // ซ้าย
+          if (track.scrollLeft <= 0) {
+            track.scrollLeft = maxScroll;
+          } else {
+            track.scrollLeft -= step;
+          }
+        }
+      }
+
+      function start() {
+        if (!timer) timer = setInterval(tick, interval);
+      }
+      function stop() {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      start();
+
+      track.addEventListener('mouseenter', stop);
+      track.addEventListener('mouseleave', start);
+      track.addEventListener('touchstart', stop, { passive: true });
+      track.addEventListener('touchend', start);
+    });
+  });
+</script>
+
+<!-- ===== FOOTER ===== -->
+<footer class="powercare-footer" role="contentinfo" aria-label="PowerCare footer">
+  <div class="pc-footer-bg"></div>
+  <div
+    class="pc-footer-halos"
+    style="
+      background:
+        radial-gradient(900px 280px at 15% -10%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0)),
+        radial-gradient(700px 240px at 85% 110%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+    "
+  ></div>
+
+  <div class="pc-footer-inner">
+    <div class="pc-footer-grid">
+      <!-- Brand & tagline -->
+      <section class="pc-footer-brand">
+        <div>
+          <p class="pc-eyebrow">HikariDenki</p>
+          <h2 class="pc-title">Service by HikariDenki</h2>
+          <p class="pc-tagline">
+            โซลูชันระบบไฟสำรองสำหรับองค์กร — ติดตั้ง บำรุงรักษา ตรวจรับรอง โดยทีมวิศวกรมืออาชีพ
+          </p>
+        </div>
+
+        <!-- Contact -->
+        <address class="pc-contact">
+          <div class="pc-contact-grid">
+            <a
+              href="tel:+66660975697"
+              class="pc-contact-chip"
+              aria-label="โทร 066-097-5697"
+            >
+              <i class="bi bi-telephone"></i>
+              <span>
+                066-097-5697
+                <span class="pc-text-soft">(คุณ ผักบุ้ง)</span>
+              </span>
+            </a>
+
+            <a href="tel:0990802197" class="pc-contact-chip">
+              <i class="bi bi-telephone"></i>
+              <span>
+                099-080-2197
+                <span class="pc-text-soft">(คุณ ผักบุ้ง)</span>
+              </span>
+            </a>
+
+            <a href="tel:021172995" class="pc-contact-chip">
+              <i class="bi bi-telephone-inbound"></i>
+              <span>
+                02-117-2995
+                <span class="pc-text-soft">(ติดต่อสำนักงาน)</span>
+              </span>
+            </a>
+
+            <a
+              href="mailto:Info@hikaripower.com"
+              class="pc-contact-chip"
+              rel="nofollow noopener"
+              onclick="return openEmail(event, 'Info@hikaripower.com', { subject: 'สอบถามสินค้าของ hikaridenki' });"
+            >
+              <i class="bi bi-envelope"></i>
+              <span>Info@hikaripower.com</span>
+            </a>
+          </div>
+
+          <div class="pc-b2b">
+            <p class="pc-b2b-label">พร้อมสำหรับงาน B2B</p>
+            <ul class="pc-b2b-list">
+              <li class="pc-b2b-item">
+                <i class="bi bi-receipt-cutoff"></i>
+                <span>ใบเสนอราคา / PO / ใบกำกับภาษี</span>
+              </li>
+              <li class="pc-b2b-item">
+                <i class="bi bi-building-check"></i>
+                <span>รองรับเครดิตเทอมองค์กร</span>
+              </li>
+              <li class="pc-b2b-item">
+                <i class="bi bi-award"></i>
+                <span>ทีมวิศวกรมีใบรับรอง</span>
+              </li>
+            </ul>
+          </div>
+        </address>
+      </section>
+
+      <!-- Map & CTA -->
+      <section class="pc-footer-map">
+        <div class="pc-map-card">
+          <div class="pc-map-header">
+            <h3 class="pc-map-title">บริษัท ฮิคาริ เดงกิ จำกัด</h3>
+            <a
+              href="https://www.google.com/maps/place/%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5+%E0%B8%AD%E0%B8%B5+%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B9%89%E0%B8%87/@13.717683,100.473264,1929m/data=!3m1!1e3!4m6!3m5!1s0x30e2991a367db98b:0x4c961d180eb9153f!8m2!3d13.717683!4d100.4732644!16s%2Fg%2F1xg5q33q?hl=th&entry=ttu"
+              target="_blank"
+              rel="noopener"
+              class="pc-button-primary"
+              aria-label="เปิดตำแหน่งบน Google Maps"
+            >
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>เปิดใน Google Maps</span>
+            </a>
+          </div>
+
+          <div class="pc-map-wrapper">
+            <div class="pc-map-badge">
+              <div class="pc-map-badge-inner">
+                <span>บริษัท ฮิคาริ เดงกิ จำกัด</span>
+              </div>
+            </div>
+
+            <iframe
+              id="gmap"
+              src="https://www.google.com/maps?q=13.717683,100.473264&hl=th&z=17&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <div class="pc-map-footer">
+            <a
+              href="https://www.google.com/maps/place/%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5+%E0%B8%AD%E0%B8%B5+%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B9%89%E0%B8%87/@13.717683,100.473264,1929m/data=!3m1!1e3!4m6!3m5!1s0x30e2991a367db98b:0x4c961d180eb9153f!8m2!3d13.717683!4d100.4732644!16s%2Fg%2F1xg5q33q?hl=th&entry=ttu"
+              target="_blank"
+              rel="noopener"
+              class="pc-button-primary"
+            >
+              <i class="bi bi-map"></i>
+              <span>เปิดใน Google Maps</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="pc-bottom-bar">
+      <p>© <span class="tabular-nums">{{ date('Y') }}</span> Service by HikariDenki. สงวนลิขสิทธิ์.</p>
+      <div class="pc-bottom-links">
+        <a href="#">นโยบายความเป็นส่วนตัว</a>
+        <span class="pc-bottom-separator">•</span>
+        <a href="#">ข้อตกลงการใช้งาน</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>

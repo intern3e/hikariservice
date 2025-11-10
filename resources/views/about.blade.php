@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Hikari Denki - ผู้เชี่ยวชาญด้านระบบไฟฟ้า</title>
+
+  <!-- Font & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="icon" type="image/png" href="https://img2.pic.in.th/pic/logohikari.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="preload" as="image" href="https://img5.pic.in.th/file/secure-sv1/-1a4e40a993810a3e6.jpg"/>
 
   <style>
@@ -68,14 +71,20 @@
       box-shadow:0 4px 12px rgba(37,99,235,0.25); transition:all .3s ease;
     }
     .btn-quote:hover{ transform:translateY(-2px); }
+    .btn-quote.wide{ display:block; text-align:center; padding:14px 18px; border-radius:16px; }
 
-    .hero{
-      position:relative; min-height:500px; display:flex; align-items:center; justify-content:center;
-      color:#fff; text-align:center; overflow:hidden;
+    .line-chip{
+      background:#06C755;
+      color:#ffffff;
+      padding:4px 12px;
+      border-radius:8px;
+      font-weight:600;
+      display:inline-block;
+      text-decoration:none;
+      font-size:0.9rem;
     }
-    .hero::after{ content:none; }
 
-    /* Drawer mobile */
+    /* ===== Drawer (mobile) ===== */
     .burger{
       margin-left:auto; width:36px; height:36px;
       border:0; background:transparent; cursor:pointer;
@@ -94,10 +103,44 @@
     #drawer{
       position:fixed; top:0; right:0; height:100dvh; width:min(420px,88vw);
       background:#fff; box-shadow:-16px 0 32px rgba(15,23,42,.12);
-      transform:translateX(100%); transition:transform .28s ease; z-index:61;
+      transform:translateX(100%); transition:transform .28s.ease; z-index:61;
       display:flex; flex-direction:column;
     }
     #drawer.open{ transform:translateX(0); }
+    .drawer-head{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 18px; border-bottom:1px solid var(--line);
+    }
+    .drawer-brand{ display:flex; align-items:center; gap:10px; }
+    .drawer-brand img{ height:34px; border-radius:8px; }
+    .drawer-close{ font-size:20px; border:0; background:transparent; cursor:pointer; color:#0b132a; }
+
+    .drawer-body{
+      padding:16px 18px 22px; overflow:auto; display:grid; gap:16px;
+    }
+    .drawer-nav ul{ list-style:none; display:grid; gap:10px; }
+    .drawer-nav a{
+      text-decoration:none; color:#0b132a; font-weight:800;
+      padding:10px 4px; display:block;
+    }
+    .drawer-nav a.active,.drawer-nav a:hover{ color:var(--brand-dark); }
+
+    .drawer-contacts{ display:grid; gap:12px; margin-top:6px; }
+    .pill{
+      display:block; padding:14px 16px; border:1px solid var(--line);
+      border-radius:999px; text-decoration:none; color:#0b132a;
+      font-weight:700; background:#fff;
+    }
+
+    @media (max-width:1024px){
+      .nav-desktop{ display:none; }
+      .right{ display:none; }
+      .burger{ display:inline-grid; }
+    }
+    @media (min-width:1025px){
+      #drawer, #backdrop{ display:none; }
+      .burger{ display:none; }
+    }
 
     body.no-scroll{ overflow:hidden; }
 
@@ -197,13 +240,13 @@
       color: #111827;
     }
 
-    /* ========= แถวรูปใบเซอร์ ให้เหมือนรูปตัวอย่าง 2 ========= */
+    /* แถวรูปใบเซอร์ */
     .cert-row {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 คอลัมน์บนจอใหญ่ */
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 8px;
       width: 100%;
-      max-width: 1000px;     /* ทำให้เป็นแท่งยาวเหมือนรูปแนวตั้ง */
+      max-width: 1000px;
       margin: 0 auto;
       padding-top: 16px;
     }
@@ -228,14 +271,12 @@
       box-shadow: 0 6px 18px rgba(15,23,42,0.25);
     }
 
-    /* tablet: 3 คอลัมน์ */
     @media (max-width: 1024px) {
       .cert-row {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
-    /* มือถือแนวนอน: 2 คอลัมน์ */
     @media (max-width: 768px) {
       .cert-row {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -244,7 +285,6 @@
       .cert-header h2 { font-size: 1.5rem; }
     }
 
-    /* มือถือเล็ก: 1 คอลัมน์ */
     @media (max-width: 560px) {
       .cert-row {
         grid-template-columns: 1fr;
@@ -291,6 +331,257 @@
       cursor: pointer;
       line-height: 32px;
     }
+
+    /* ============ PowerCare Footer ============ */
+    .powercare-footer {
+      position: relative;
+      color: #f9fafb;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .powercare-footer a { color: inherit; text-decoration: none; }
+    .powercare-footer a:hover { text-decoration: none; }
+    .powercare-footer .pc-footer-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0a2356, #0b2a6b 45%, #0f4c75);
+      z-index: 0;
+    }
+    .powercare-footer .pc-footer-halos {
+      position: absolute;
+      inset: 0;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .powercare-footer .pc-footer-inner {
+      position: relative;
+      z-index: 5;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 2.5rem;
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-footer-inner {
+        padding-top: 4rem;
+        padding-bottom: 3rem;
+      }
+    }
+    .powercare-footer .pc-footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem 2.5rem;
+      align-items: flex-start;
+    }
+    @media (min-width: 768px) {
+      .powercare-footer .pc-footer-grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      }
+    }
+    .powercare-footer .pc-footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .powercare-footer .pc-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #fbbf24;
+    }
+    .powercare-footer .pc-title {
+      margin-top: 0.25rem;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-title { font-size: 1.875rem; }
+    }
+    .powercare-footer .pc-tagline {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(241, 245, 249, 0.9);
+    }
+    .powercare-footer .pc-contact {
+      margin-top: 1.25rem;
+      font-style: normal;
+    }
+    .powercare-footer .pc-contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .powercare-footer .pc-contact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.7rem;
+      background: rgba(255, 255, 255, 0.06);
+      transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .powercare-footer .pc-contact-chip i { font-size: 1rem; }
+    .powercare-footer .pc-contact-chip:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.4);
+    }
+    .powercare-footer .pc-text-soft { color: rgba(255, 255, 255, 0.75); }
+    .powercare-footer .pc-b2b { margin-top: 0.75rem; }
+    .powercare-footer .pc-b2b-label {
+      font-weight: 600;
+      color: #fbbf24;
+      margin-bottom: 0.4rem;
+    }
+    .powercare-footer .pc-b2b-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+      font-size: 0.93rem;
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-b2b-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .powercare-footer .pc-b2b-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .powercare-footer .pc-b2b-item i { color: #fbbf24; }
+    .powercare-footer .pc-map-card {
+      border-radius: 1rem;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+    }
+    .powercare-footer .pc-map-header,
+    .powercare-footer .pc-map-footer {
+      padding: 1rem;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-map-header,
+      .powercare-footer .pc-map-footer {
+        padding: 1.25rem;
+      }
+    }
+    .powercare-footer .pc-map-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .powercare-footer .pc-map-title { font-weight: 600; }
+    .powercare-footer .pc-button-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.9rem;
+      border-radius: 0.7rem;
+      background: #ffffff;
+      color: #0b2a6b;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .powercare-footer .pc-button-primary:hover {
+      background: #fbbf24;
+      color: #000;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.5);
+    }
+    .powercare-footer .pc-map-wrapper {
+      position: relative;
+      background: rgba(15, 23, 42, 0.6);
+      aspect-ratio: 16 / 10;
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-map-wrapper {
+        aspect-ratio: 16 / 9;
+      }
+    }
+    .powercare-footer .pc-map-badge {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .powercare-footer .pc-map-badge-inner {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      border-radius: 0.75rem;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 0.45rem 0.75rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+    .powercare-footer .pc-map-badge-inner span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #0f172a;
+    }
+    .powercare-footer #gmap {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .powercare-footer .pc-map-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .powercare-footer .pc-map-footer .pc-button-primary { width: 100%; }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-map-footer { display: none; }
+    }
+    .powercare-footer .pc-bottom-bar {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: flex-start;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: rgba(249, 250, 251, 0.85);
+    }
+    @media (min-width: 640px) {
+      .powercare-footer .pc-bottom-bar {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+    .powercare-footer .pc-bottom-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .powercare-footer .pc-bottom-links a {
+      opacity: 0.9;
+      transition: opacity 0.2s ease;
+    }
+    .powercare-footer .pc-bottom-links a:hover { opacity: 1; }
+    .powercare-footer .pc-bottom-separator { opacity: 0.5; }
+    .powercare-footer .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
   </style>
 </head>
 
@@ -298,7 +589,7 @@
   <!-- ===== HEADER ===== -->
   <header id="header">
     <div class="nav-container">
-      <a href="#home" class="logo">
+      <a href="/" class="logo">
         <img src="{{ asset('storage/logohikari.png') }}" alt="Hikari Denki">
         HikariDenki
       </a>
@@ -314,15 +605,44 @@
       <div class="right">
         <div class="contact-item">
           <a href="tel:0660975697">
-            066-097-5697 <span class="text-black/75">(คุณ ผักบุ้ง)</span>
+            066-097-5697 <span style="opacity:.75">(คุณ ผักบุ้ง)</span>
           </a>
         </div>
+
         <div class="contact-item">
-          <a href="mailto:Info@hikaripower.com">Info@hikaripower.com</a>
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=Info@hikaripower.com&su=ขอใบเสนอราคา"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Info@hikaripower.com
+          </a>
         </div>
-        <a class="btn-quote" href="#contact">ขอใบเสนอราคา</a>
+
+        <!-- LINE desktop -->
+        <div>
+          <a
+            href="https://line.me/R/ti/p/@hikaridenki"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="line-chip"
+            onclick="openLine(event)"
+          >
+            LINE
+          </a>
+        </div>
+
+        <a
+          class="btn-quote"
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=Info@hikaripower.com&su=ขอใบเสนอราคา"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ขอใบเสนอราคา
+        </a>
       </div>
 
+      <!-- 3 ขีด (มือถือ) -->
       <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
         <svg class="burger-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M4 7h16M4 12h16M4 17h16"
@@ -336,6 +656,41 @@
     </div>
   </header>
 
+  <!-- Backdrop + Drawer -->
+  <div id="backdrop" aria-hidden="true"></div>
+  <aside id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <div class="drawer-head">
+      <div class="drawer-brand">
+        <img src="{{ asset('storage/logohikari.png') }}" alt="Hikari Denki">
+        <strong id="drawerTitle">HikariDenki</strong>
+      </div>
+      <button id="drawerClose" class="drawer-close" aria-label="Close menu">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <nav class="drawer-nav">
+        <ul>
+          <li><a href="/">หน้าแรก</a></li>
+          <li><a href="Service">บริการ</a></li>
+          <li><a href="about" class="active">เกี่ยวกับเรา</a></li>
+        </ul>
+      </nav>
+
+      <div class="drawer-contacts">
+        <a class="pill" href="tel:0990802197">📞 099-080-2197</a>
+        <a class="pill" href="mailto:Info@hikaripower.com">✉️ Info@hikaripower.com</a>
+        <a class="pill" href="https://line.me/R/ti/p/@hikaridenki" target="_blank" rel="noopener">💬 LINE</a>
+      </div>
+
+      <a class="btn-quote wide"
+         href="https://mail.google.com/mail/?view=cm&fs=1&to=Info@hikaripower.com&su=ขอใบเสนอราคา"
+         target="_blank" rel="noopener noreferrer">
+        ขอใบเสนอราคา
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== CONTENT: ใบรับรอง ===== -->
   <section class="about-cert-area" id="about-and-cert">
     <div class="about-brief">
       <div class="about-brief-label">ภาพชุดรวมใบรับรอง</div>
@@ -389,8 +744,206 @@
     </div>
   </div>
 
+  <!-- FOOTER -->
+  <footer class="powercare-footer" role="contentinfo" aria-label="PowerCare footer">
+    <div class="pc-footer-bg"></div>
+    <div
+      class="pc-footer-halos"
+      style="
+        background:
+          radial-gradient(900px 280px at 15% -10%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0)),
+          radial-gradient(700px 240px at 85% 110%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+      "
+    ></div>
+
+    <div class="pc-footer-inner">
+      <div class="pc-footer-grid">
+        <section class="pc-footer-brand">
+          <div>
+            <p class="pc-eyebrow">HikariDenki</p>
+            <h2 class="pc-title">Service by HikariDenki</h2>
+            <p class="pc-tagline">
+              โซลูชันระบบไฟสำรองสำหรับองค์กร — ติดตั้ง บำรุงรักษา ตรวจรับรอง โดยทีมวิศวกรมืออาชีพ
+            </p>
+          </div>
+
+          <address class="pc-contact">
+            <div class="pc-contact-grid">
+              <a href="tel:+66660975697" class="pc-contact-chip" aria-label="โทร 066-097-5697">
+                <i class="bi bi-telephone"></i>
+                <span>
+                  066-097-5697
+                  <span class="pc-text-soft">(คุณ ผักบุ้ง)</span>
+                </span>
+              </a>
+
+              <a href="tel:0990802197" class="pc-contact-chip">
+                <i class="bi bi-telephone"></i>
+                <span>
+                  099-080-2197
+                  <span class="pc-text-soft">(คุณ ผักบุ้ง)</span>
+                </span>
+              </a>
+
+              <a href="tel:021172995" class="pc-contact-chip">
+                <i class="bi bi-telephone-inbound"></i>
+                <span>
+                  02-117-2995
+                  <span class="pc-text-soft">(ติดต่อสำนักงาน)</span>
+                </span>
+              </a>
+
+              <a
+                href="mailto:Info@hikaripower.com"
+                class="pc-contact-chip"
+                rel="nofollow noopener"
+                onclick="return openEmail(event, 'Info@hikaripower.com', { subject: 'สอบถามสินค้าของ hikaridenki' });"
+              >
+                <i class="bi bi-envelope"></i>
+                <span>Info@hikaripower.com</span>
+              </a>
+            </div>
+
+            <div class="pc-b2b">
+              <p class="pc-b2b-label">พร้อมสำหรับงาน B2B</p>
+              <ul class="pc-b2b-list">
+                <li class="pc-b2b-item">
+                  <i class="bi bi-receipt-cutoff"></i>
+                  <span>ใบเสนอราคา / PO / ใบกำกับภาษี</span>
+                </li>
+                <li class="pc-b2b-item">
+                  <i class="bi bi-building-check"></i>
+                  <span>รองรับเครดิตเทอมองค์กร</span>
+                </li>
+                <li class="pc-b2b-item">
+                  <i class="bi bi-award"></i>
+                  <span>ทีมวิศวกรมีใบรับรอง</span>
+                </li>
+              </ul>
+            </div>
+          </address>
+        </section>
+
+        <section class="pc-footer-map">
+          <div class="pc-map-card">
+            <div class="pc-map-header">
+              <h3 class="pc-map-title">บริษัท ฮิคาริ เดงกิ จำกัด</h3>
+              <a
+                href="https://www.google.com/maps/place/%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5+%E0%B8%AD%E0%B8%B5+%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B9%89%E0%B8%87/@13.717683,100.473264,1929m/data=!3m1!1e3!4m6!3m5!1s0x30e2991a367db98b:0x4c961d180eb9153f!8m2!3d13.717683!4d100.4732644!16s%2Fg%2F1xg5q33q?hl=th&entry=ttu"
+                target="_blank"
+                rel="noopener"
+                class="pc-button-primary"
+                aria-label="เปิดตำแหน่งบน Google Maps"
+              >
+                <i class="bi bi-geo-alt-fill"></i>
+                <span>เปิดใน Google Maps</span>
+              </a>
+            </div>
+
+            <div class="pc-map-wrapper">
+              <div class="pc-map-badge">
+                <div class="pc-map-badge-inner">
+                  <span>บริษัท ฮิคาริ เดงกิ จำกัด</span>
+                </div>
+              </div>
+
+              <iframe
+                id="gmap"
+                src="https://www.google.com/maps?q=13.717683,100.473264&hl=th&z=17&output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+              ></iframe>
+            </div>
+
+            <div class="pc-map-footer">
+              <a
+                href="https://www.google.com/maps/place/%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5+%E0%B8%AD%E0%B8%B5+%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B9%89%E0%B8%87/@13.717683,100.473264,1929m/data=!3m1!1e3!4m6!3m5!1s0x30e2991a367db98b:0x4c961d180eb9153f!8m2!3d13.717683!4d100.4732644!16s%2Fg%2F1xg5q33q?hl=th&entry=ttu"
+                target="_blank"
+                rel="noopener"
+                class="pc-button-primary"
+              >
+                <i class="bi bi-map"></i>
+                <span>เปิดใน Google Maps</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="pc-bottom-bar">
+        <p>
+          © <span class="tabular-nums">{{ date('Y') }}</span> Service by HikariDenki. สงวนลิขสิทธิ์.
+        </p>
+        <div class="pc-bottom-links">
+          <a href="#">นโยบายความเป็นส่วนตัว</a>
+          <span class="pc-bottom-separator">•</span>
+          <a href="#">ข้อตกลงการใช้งาน</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JS ===== -->
   <script>
-    // คลิกที่รูปให้ขยาย
+    // sticky header
+    const headerEl = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      headerEl.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Drawer controls
+    const burger = document.getElementById('burger');
+    const drawer = document.getElementById('drawer');
+    const backdrop = document.getElementById('backdrop');
+    const drawerClose = document.getElementById('drawerClose');
+
+    function openDrawer() {
+      burger.setAttribute('aria-expanded','true');
+      drawer.classList.add('open');
+      backdrop.classList.add('show');
+      document.body.classList.add('no-scroll');
+    }
+    function closeDrawer() {
+      burger.setAttribute('aria-expanded','false');
+      drawer.classList.remove('open');
+      backdrop.classList.remove('show');
+      document.body.classList.remove('no-scroll');
+    }
+
+    burger.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+    window.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
+    // LINE
+    function openLine(event){
+      event.preventDefault();
+      var lineAppUrl = "line://ti/p/@hikaridenki";
+      var lineWebUrl = "https://line.me/R/ti/p/@hikaridenki";
+      var start = Date.now();
+      window.location.href = lineAppUrl;
+      setTimeout(function () {
+        if (Date.now() - start < 1500) {
+          window.open(lineWebUrl, "_blank");
+        }
+      }, 1000);
+    }
+
+    // mail helper (footer)
+    function openEmail(e, address, opts) {
+      e.preventDefault();
+      opts = opts || {};
+      const params = new URLSearchParams();
+      if (opts.subject) params.append('subject', opts.subject);
+      if (opts.body) params.append('body', opts.body);
+      const qs = params.toString();
+      window.location.href = 'mailto:' + address + (qs ? '?' + qs : '');
+      return false;
+    }
+
+    // certificate modal
     document.querySelectorAll('.cert-row img').forEach(function (img) {
       img.addEventListener('click', function () {
         var modal = document.getElementById('certModal');
@@ -399,16 +952,12 @@
         modal.classList.add('show');
       });
     });
-
-    // ปิดโมดัล
     (function () {
       var modal = document.getElementById('certModal');
       var closeBtn = modal.querySelector('.cert-modal-close');
-
       closeBtn.addEventListener('click', function () {
         modal.classList.remove('show');
       });
-
       modal.addEventListener('click', function (e) {
         if (e.target === modal) {
           modal.classList.remove('show');
@@ -416,503 +965,5 @@
       });
     })();
   </script>
-  <style>
-  /* ============ PowerCare Footer ============ */
-  .powercare-footer {
-    position: relative;
-    color: #f9fafb;
-    overflow: hidden;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-
-  .powercare-footer a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .powercare-footer a:hover {
-    text-decoration: none;
-  }
-
-  /* พื้นหลังไล่สี */
-  .powercare-footer .pc-footer-bg {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #0a2356, #0b2a6b 45%, #0f4c75);
-    z-index: 0;
-  }
-
-  /* ฮาโลว์แสงด้านบน/ล่าง */
-  .powercare-footer .pc-footer-halos {
-    position: absolute;
-    inset: 0;
-    opacity: 0.12;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  /* คอนเทนต์ด้านใน */
-  .powercare-footer .pc-footer-inner {
-    position: relative;
-    z-index: 5;
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem 2.5rem;
-  }
-
-  @media (min-width: 640px) {
-    .powercare-footer .pc-footer-inner {
-      padding-top: 4rem;
-      padding-bottom: 3rem;
-    }
-  }
-
-  /* เลย์เอาต์ 2 คอลัมน์ */
-  .powercare-footer .pc-footer-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem 2.5rem;
-    align-items: flex-start;
-  }
-
-  @media (min-width: 768px) {
-    .powercare-footer .pc-footer-grid {
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    }
-  }
-
-  .powercare-footer .pc-footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  /* หัวข้อ PowerCare */
-  .powercare-footer .pc-eyebrow {
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #fbbf24;
-  }
-
-  .powercare-footer .pc-title {
-    margin-top: 0.25rem;
-    font-size: 1.5rem;
-    font-weight: 800;
-  }
-
-  @media (min-width: 640px) {
-    .powercare-footer .pc-title {
-      font-size: 1.875rem;
-    }
-  }
-
-  .powercare-footer .pc-tagline {
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: rgba(241, 245, 249, 0.9);
-  }
-
-  /* ส่วน contact */
-  .powercare-footer .pc-contact {
-    margin-top: 1.25rem;
-    font-style: normal;
-  }
-
-  .powercare-footer .pc-contact-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  @media (min-width: 640px) {
-    .powercare-footer .pc-contact-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .powercare-footer .pc-contact-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.7rem;
-    background: rgba(255, 255, 255, 0.06);
-    transition:
-      background-color 0.2s ease,
-      transform 0.15s ease,
-      box-shadow 0.15s ease;
-  }
-
-  .powercare-footer .pc-contact-chip i {
-    font-size: 1rem;
-  }
-
-  .powercare-footer .pc-contact-chip:hover {
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-1px);
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.4);
-  }
-
-  .powercare-footer .pc-text-soft {
-    color: rgba(255, 255, 255, 0.75);
-  }
-
-  /* รายการ B2B */
-  .powercare-footer .pc-b2b {
-    margin-top: 0.75rem;
-  }
-
-  .powercare-footer .pc-b2b-label {
-    font-weight: 600;
-    color: #fbbf24;
-    margin-bottom: 0.4rem;
-  }
-
-  .powercare-footer .pc-b2b-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
-    font-size: 0.93rem;
-  }
-
-  @media (min-width: 640px) {
-    .powercare-footer .pc-b2b-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .powercare-footer .pc-b2b-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .powercare-footer .pc-b2b-item i {
-    color: #fbbf24;
-  }
-
-  /* การ์ด Map */
-  .powercare-footer .pc-map-card {
-    border-radius: 1rem;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
-  }
-
-  .powercare-footer .pc-map-header,
-  .powercare-footer .pc-map-footer {
-    padding: 1rem;
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-
-  @media (min-width: 640px) {
-    .powercare-footer .pc-map-header,
-    .powercare-footer .pc-map-footer {
-      padding: 1.25rem;
-    }
-  }
-
-  .powercare-footer .pc-map-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .powercare-footer .pc-map-title {
-    font-weight: 600;
-  }
-
-  /* ปุ่มหลัก */
-  .powercare-footer .pc-button-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.9rem;
-    font-size: 0.9rem;
-    border-radius: 0.7rem;
-    background: #ffffff;
-    color: #0b2a6b;
-    border: none;
-    cursor: pointer;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease,
-      transform 0.15s ease,
-      box-shadow 0.15s ease;
-  }
-
-  .powercare-footer .pc-button-primary:hover {
-    background: #fbbf24;
-    color: #000;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.5);
-  }
-
-  /* กล่อง Map */
-  .powercare-footer .pc-map-wrapper {
-    position: relative;
-    background: rgba(15, 23, 42, 0.6);
-    aspect-ratio: 16 / 10;
-  }
-
-  @media (min-width: 640px) {
-    .powercare-footer .pc-map-wrapper {
-      aspect-ratio: 16 / 9;
-    }
-  }
-
-  .powercare-footer .pc-map-badge {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .powercare-footer .pc-map-badge-inner {
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    border-radius: 0.75rem;
-    background: rgba(255, 255, 255, 0.96);
-    padding: 0.45rem 0.75rem;
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.45);
-    border: 1px solid rgba(15, 23, 42, 0.08);
-  }
-
-  .powercare-footer .pc-map-badge-inner span {
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.3;
-    color: #0f172a;
-  }
-
-  .powercare-footer #gmap {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-
-  /* ปุ่ม Map ด้านล่าง (เฉพาะมือถือ) */
-  .powercare-footer .pc-map-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .powercare-footer .pc-map-footer .pc-button-primary {
-    width: 100%;
-  }
-
-  @media (min-width: 640px) {
-    .powercare-footer .pc-map-footer {
-      display: none;
-    }
-  }
-
-  /* แถบล่างสุด */
-  .powercare-footer .pc-bottom-bar {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: flex-start;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    color: rgba(249, 250, 251, 0.85);
-  }
-
-  @media (min-width: 640px) {
-    .powercare-footer .pc-bottom-bar {
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-
-  .powercare-footer .pc-bottom-links {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .powercare-footer .pc-bottom-links a {
-    opacity: 0.9;
-    transition: opacity 0.2s ease;
-  }
-
-  .powercare-footer .pc-bottom-links a:hover {
-    opacity: 1;
-  }
-
-  .powercare-footer .pc-bottom-separator {
-    opacity: 0.5;
-  }
-
-  .powercare-footer .tabular-nums {
-    font-variant-numeric: tabular-nums;
-  }
-</style>
-
-<footer class="powercare-footer" role="contentinfo" aria-label="PowerCare footer">
-  <!-- Gradient background -->
-  <div class="pc-footer-bg"></div>
-  <!-- Soft light halos -->
-  <div
-    class="pc-footer-halos"
-    style="
-      background:
-        radial-gradient(900px 280px at 15% -10%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0)),
-        radial-gradient(700px 240px at 85% 110%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
-    "
-  ></div>
-
-  <!-- Content -->
-  <div class="pc-footer-inner">
-    <div class="pc-footer-grid">
-      <!-- Brand & tagline -->
-      <section class="pc-footer-brand">
-        <div>
-          <p class="pc-eyebrow">HikariDenki</p>
-          <h2 class="pc-title">Service by HikariDenki</h2>
-          <p class="pc-tagline">
-            โซลูชันระบบไฟสำรองสำหรับองค์กร — ติดตั้ง บำรุงรักษา ตรวจรับรอง โดยทีมวิศวกรมืออาชีพ
-          </p>
-        </div>
-
-        <!-- Contact -->
-        <address class="pc-contact">
-          <div class="pc-contact-grid">
-            <a
-              href="tel:+66660975697"
-              class="pc-contact-chip"
-              aria-label="โทร 066-097-5697"
-            >
-              <i class="bi bi-telephone"></i>
-              <span>
-                066-097-5697
-                <span class="pc-text-soft">(คุณ ผักบุ้ง)</span>
-              </span>
-            </a>
-
-            <a href="tel:0990802197" class="pc-contact-chip">
-              <i class="bi bi-telephone"></i>
-              <span>
-                099-080-2197
-                <span class="pc-text-soft">(คุณ ผักบุ้ง)</span>
-              </span>
-            </a>
-
-            <a href="tel:021172995" class="pc-contact-chip">
-              <i class="bi bi-telephone-inbound"></i>
-              <span>
-                02-117-2995
-                <span class="pc-text-soft">(ติดต่อสำนักงาน)</span>
-              </span>
-            </a>
-
-            <a
-              href="mailto:Info@hikaripower.com"
-              class="pc-contact-chip"
-              rel="nofollow noopener"
-              onclick="return openEmail(event, 'Info@hikaripower.com', { subject: 'สอบถามสินค้าของ hikaridenki' });"
-            >
-              <i class="bi bi-envelope"></i>
-              <span>Info@hikaripower.com</span>
-            </a>
-          </div>
-
-          <div class="pc-b2b">
-            <p class="pc-b2b-label">พร้อมสำหรับงาน B2B</p>
-            <ul class="pc-b2b-list">
-              <li class="pc-b2b-item">
-                <i class="bi bi-receipt-cutoff"></i>
-                <span>ใบเสนอราคา / PO / ใบกำกับภาษี</span>
-              </li>
-              <li class="pc-b2b-item">
-                <i class="bi bi-building-check"></i>
-                <span>รองรับเครดิตเทอมองค์กร</span>
-              </li>
-              <li class="pc-b2b-item">
-                <i class="bi bi-award"></i>
-                <span>ทีมวิศวกรมีใบรับรอง</span>
-              </li>
-            </ul>
-          </div>
-        </address>
-      </section>
-
-      <!-- Map & CTA -->
-      <section class="pc-footer-map">
-        <div class="pc-map-card">
-          <div class="pc-map-header">
-            <h3 class="pc-map-title">บริษัท ฮิคาริ เดงกิ จำกัด</h3>
-            <a
-              href="https://www.google.com/maps/place/%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5+%E0%B8%AD%E0%B8%B5+%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B9%89%E0%B8%87/@13.717683,100.473264,1929m/data=!3m1!1e3!4m6!3m5!1s0x30e2991a367db98b:0x4c961d180eb9153f!8m2!3d13.717683!4d100.4732644!16s%2Fg%2F1xg5q33q?hl=th&entry=ttu"
-              target="_blank"
-              rel="noopener"
-              class="pc-button-primary"
-              aria-label="เปิดตำแหน่งบน Google Maps"
-            >
-              <i class="bi bi-geo-alt-fill"></i>
-              <span>เปิดใน Google Maps</span>
-            </a>
-          </div>
-
-          <!-- กล่องแผนที่ + ป้ายชื่อซ้อนทับ -->
-          <div class="pc-map-wrapper">
-            <div class="pc-map-badge">
-              <div class="pc-map-badge-inner">
-                <span>บริษัท ฮิคาริ เดงกิ จำกัด</span>
-              </div>
-            </div>
-
-            <!-- ใช้ iframe ฝัง Google Maps -->
-            <iframe
-              id="gmap"
-              src="https://www.google.com/maps?q=13.717683,100.473264&hl=th&z=17&output=embed"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              allowfullscreen
-            ></iframe>
-          </div>
-
-          <!-- ปุ่มล่าง (มือถือ) -->
-          <div class="pc-map-footer">
-            <a
-              href="https://www.google.com/maps/place/%E0%B8%97%E0%B8%A3%E0%B8%B4%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B9%89%E0%B8%A5+%E0%B8%AD%E0%B8%B5+%E0%B9%80%E0%B8%97%E0%B8%A3%E0%B8%94%E0%B8%94%E0%B8%B4%E0%B9%89%E0%B8%87/@13.717683,100.473264,1929m/data=!3m1!1e3!4m6!3m5!1s0x30e2991a367db98b:0x4c961d180eb9153f!8m2!3d13.717683!4d100.4732644!16s%2Fg%2F1xg5q33q?hl=th&entry=ttu"
-              target="_blank"
-              rel="noopener"
-              class="pc-button-primary"
-            >
-              <i class="bi bi-map"></i>
-              <span>เปิดใน Google Maps</span>
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Bottom bar -->
-    <div class="pc-bottom-bar">
-      <p>
-        © <span class="tabular-nums">{{ date('Y') }}</span> Service by HikariDenki. สงวนลิขสิทธิ์.
-      </p>
-      <div class="pc-bottom-links">
-        <a href="#">นโยบายความเป็นส่วนตัว</a>
-        <span class="pc-bottom-separator">•</span>
-        <a href="#">ข้อตกลงการใช้งาน</a>
-      </div>
-    </div>
-  </div>
-</footer>
 </body>
 </html>
