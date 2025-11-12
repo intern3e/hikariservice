@@ -632,18 +632,27 @@
 
     $upsByBrand = $servicesCollection
         ->filter(fn($s) => $normalize($s->category) === $normalize('UPSเครื่องสำรองไฟ'))
-        ->groupBy('brand')->sortKeys();
+        ->groupBy('brand')
+        ->sortKeys();
 
+    // ไฟฉุกเฉินและป้ายหนีไฟ: ย้ายแบรนด์ที่ขึ้นต้นด้วย S ขึ้นก่อน
     $emerByBrand = $servicesCollection
         ->filter(fn($s) => $normalize($s->category) === $normalize('ไฟฉุกเฉินและป้ายหนีไฟ'))
-        ->groupBy('brand')->sortKeys();
+        ->groupBy('brand')
+        ->sortBy(function ($items, $brand) {
+            $first = strtoupper(substr(trim($brand), 0, 1));
+            $priority = ($first === 'S') ? 0 : 1;   // S มาก่อน แล้วค่อยตัวอื่น
+            return $priority.'_'.$brand;           // เรียงต่อด้วยชื่อแบรนด์ปกติ
+        });
 
     $batteryByBrand = $servicesCollection
         ->filter(fn($s) => $normalize($s->category) === $normalize('แบตเตอรี่'))
-        ->groupBy('brand')->sortKeys();
+        ->groupBy('brand')
+        ->sortKeys();
 
     $defaultPdfPath = asset('storage/partner/h.pdf');
 @endphp
+
 
   <!-- HEADER -->
   <header id="header">
